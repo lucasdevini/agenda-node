@@ -13,6 +13,10 @@ router.get('/logado', privateRoute, accessController.logado)
 
 // Rotas de usuário
 router.get('/user', rolesController.user);
-router.post('/user', rolesController.user)
+router.post('/user', rolesController.user); 
+
+// Rotas de admin
+router.get('/admin', rolesController.admin);
+router.get('/search', rolesController.search);
 
 export default router;
