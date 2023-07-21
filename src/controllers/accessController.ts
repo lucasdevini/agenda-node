@@ -45,12 +45,11 @@ export const login = async (req: Request, res: Response) => {
 
         if(user) {
             const token = generateToken({id: user.id})
-
-            console.log(token);
+            
             res.cookie('token', token, {httpOnly: true});
-            res.redirect('/logado');
+            return res.redirect('/logado');
         } else {
-            console.log('O usuário não existe');
+            res.status(401).json({ error: 'Credenciais inválidas' });
         }
     } else {
         res.status(400).json({ error: 'Email e senha são obrigatórios' });
