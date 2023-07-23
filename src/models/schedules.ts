@@ -29,6 +29,6 @@ export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
         type: DataTypes.DATE
     }
 }, {
-    tableName: 'schedules',
+    tableName: 'schedule',
     timestamps: false
 })

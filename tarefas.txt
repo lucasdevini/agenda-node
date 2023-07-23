@@ -4,6 +4,4 @@
     - filtrar solicitações [v];
     - confirmar/recusar solicitações [];
 
-[ ] (Alteração) - O usuário não está sendo encontrado pela função findo do sequelize, por isso não é autorizado. Provavelmente tem a ver com a faltar do cabeçalho authorization/bearer.  
-
 [ ] (ALTERAÇÃO) - Modificar o form e bd dos agendamentos: Todos os dados do usuário que estão no atual form já se encontram na conta do usuário, sendo necessária apenas a data de agendamento. Considerar também pôr um textarea com o assunto a ser discutido.

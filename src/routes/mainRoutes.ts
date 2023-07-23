@@ -1,22 +1,29 @@
 import { Router } from "express";
+import passport from "passport";
 
-import * as accessController from '../controllers/accessController';
+import * as authController from '../controllers/authController';
 import * as rolesController from '../controllers/rolesController';
-import { privateRoute } from "../config/passport";
+import { privateRoute } from "../passport";
 
 const router = Router();
 
-// Rotas de autenticação
-router.get('/login-form', accessController.loginForm);
-router.post('/login', accessController.login);
-router.get('/logado', privateRoute, accessController.logado)
+// rotas de registro
+router.get('/register', authController.registerPage)
+router.post('/register', authController.register);
+
+// rotas de login
+router.get('/login', authController.loginPage);
+router.post('/login', passport.authenticate('local', {
+    successRedirect: '/user',
+    failureRedirect: '/login'
+}));
 
 // Rotas de usuário
-router.get('/user', rolesController.user);
-router.post('/user', rolesController.user); 
+router.get('/user', privateRoute, rolesController.user);
+router.post('/user', privateRoute, rolesController.user); 
 
 // Rotas de admin
-router.get('/admin', rolesController.admin);
-router.get('/search', rolesController.search);
+router.get('/admin', privateRoute, rolesController.admin);
+router.get('/search', privateRoute, rolesController.search);
 
 export default router;
