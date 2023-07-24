@@ -35,6 +35,10 @@ export const loginPage = (req: Request, res: Response) => {
     res.render('pages/login');
 }
 
-export const logado = async (req:Request, res:Response) => {
-    res.render('pages/loged')
-}
+export const logout = (req: Request, res: Response, next: NextFunction) => {
+    req.logout((err) => {
+        if(err) { return next(err); }
+        
+        res.redirect('/login');
+    });
+};

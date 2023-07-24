@@ -21,9 +21,9 @@ export function initialize(passport:any) {
         done(null, user.id);
     })
 
-    passport.deserializeUser((id:any, done:any) => {
+    passport.deserializeUser(async (id:any, done:any) => {
         try {
-            const user = findUserById(id);
+            const user = await findUserById(id);
             done(null, user)
         } catch(err) {
             console.log(err);

@@ -1,3 +1,5 @@
+[ ] (Adição) - acesso a rotas através de níves de permissão (usuário e admin)
+
 [ ] (Adição) - Criar a página do admn. Nesta, o mesmo deve poder confirmar/recursar solicitações de agendamentos, visualizar uma lista de agendamentos (podendo fazer filtros com datas)
     - Criar página [v];
     - Receber dados (sem filtro) [v];

@@ -26,4 +26,7 @@ router.post('/user', privateRoute, rolesController.user);
 router.get('/admin', privateRoute, rolesController.admin);
 router.get('/search', privateRoute, rolesController.search);
 
+// Rota de logout
+router.post('/logout', authController.logout);
+
 export default router;
