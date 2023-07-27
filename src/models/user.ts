@@ -4,7 +4,8 @@ import { sequelize } from '../instances/sql';
 export interface UserInstance extends Model {
     id: number,
     email: string,
-    password: string
+    password: string,
+    role: string
 }
 
 export const User = sequelize.define<UserInstance>('User',
@@ -20,7 +21,10 @@ export const User = sequelize.define<UserInstance>('User',
     },
     password: {
         type: DataTypes.STRING
-    } 
+    },
+    role: {
+        type: DataTypes.STRING
+    }
 }, {
     tableName: 'user',
     timestamps: false

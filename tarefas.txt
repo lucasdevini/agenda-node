@@ -1,9 +1,11 @@
-[ ] (Adição) - acesso a rotas através de níves de permissão (usuário e admin)
+[ v ] (Adição) - acesso a rotas através de níves de permissão (usuário e admin)
+
+[ v ] (adição) - redirecionar o usuário de acordo com sua role para usa respectiva página inicial após login
+
+[ ] (ALTERAÇÃO) - Modificar o form e bd dos agendamentos: os dados serão capturados da sessão do usuário. Assim, no form de agendamentos basta ter data e hora.
 
 [ ] (Adição) - Criar a página do admn. Nesta, o mesmo deve poder confirmar/recursar solicitações de agendamentos, visualizar uma lista de agendamentos (podendo fazer filtros com datas)
     - Criar página [v];
     - Receber dados (sem filtro) [v];
     - filtrar solicitações [v];
     - confirmar/recusar solicitações [];
-
-[ ] (ALTERAÇÃO) - Modificar o form e bd dos agendamentos: Todos os dados do usuário que estão no atual form já se encontram na conta do usuário, sendo necessária apenas a data de agendamento. Considerar também pôr um textarea com o assunto a ser discutido.

@@ -1,9 +1,8 @@
 import { Router } from "express";
-import passport from "passport";
 
 import * as authController from '../controllers/authController';
 import * as rolesController from '../controllers/rolesController';
-import { privateRoute } from "../passport";
+import { authenticate, privateRoute, adminPrivateRoute } from "../passport";
 
 const router = Router();
 
@@ -13,18 +12,15 @@ router.post('/register', authController.register);
 
 // rotas de login
 router.get('/login', authController.loginPage);
-router.post('/login', passport.authenticate('local', {
-    successRedirect: '/user',
-    failureRedirect: '/login'
-}));
+router.post('/login', authenticate());
 
 // Rotas de usuário
 router.get('/user', privateRoute, rolesController.user);
 router.post('/user', privateRoute, rolesController.user); 
 
 // Rotas de admin
-router.get('/admin', privateRoute, rolesController.admin);
-router.get('/search', privateRoute, rolesController.search);
+router.get('/admin', adminPrivateRoute, rolesController.admin);
+router.get('/search', adminPrivateRoute, rolesController.search);
 
 // Rota de logout
 router.post('/logout', authController.logout);
