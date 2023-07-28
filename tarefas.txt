@@ -1,11 +1,14 @@
-[ v ] (Adição) - acesso a rotas através de níves de permissão (usuário e admin)
-
-[ v ] (adição) - redirecionar o usuário de acordo com sua role para usa respectiva página inicial após login
-
-[ ] (ALTERAÇÃO) - Modificar o form e bd dos agendamentos: os dados serão capturados da sessão do usuário. Assim, no form de agendamentos basta ter data e hora.
+[ v ] (ALTERAÇÃO) - Modificar o form e bd dos agendamentos: os dados serão capturados da sessão do usuário (email e id) e do bd (cpf - somente no momento de envio do form). Assim, no form de agendamentos basta ter data e hora.
 
 [ ] (Adição) - Criar a página do admn. Nesta, o mesmo deve poder confirmar/recursar solicitações de agendamentos, visualizar uma lista de agendamentos (podendo fazer filtros com datas)
     - Criar página [v];
     - Receber dados (sem filtro) [v];
     - filtrar solicitações [v];
     - confirmar/recusar solicitações [];
+
+[ ] (Adição) - Página de acompanhamento de agendamentos confirmados do usuário
+
+[ ] (ALTERAÇÃO) - Agora os usuário devem adicionar também o seu cpf para se registrar no sistema, de forma que este será salvo no banco de dados com criptografia. Além disso, adicionar também os campos telefone e endereço (cidade, bairro...). 
+    - OBS: O campo cpf não será retornado no objeto req.user, sendo excluído dos dados retornados via sequelize. O único momento em que o cpf será utilizado será no momento de enviar os dados no form para o agendamento.
+    
+    - OBS 2: é importante implementar um mecanismo para que o usuário permita a utilização do CPF por medidas de segurança.

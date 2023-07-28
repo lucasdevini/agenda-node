@@ -1,20 +1,21 @@
 import { Request, Response } from "express";
 import { Schedule } from "../models/schedules";
 import sequelize, { Op } from "sequelize";
+import { UserInstance } from "../models/user";
 
 // Controller do usuário
 export const user = async (req: Request, res: Response) => {
-    if(req.body.name && req.body.cpf && req.body.email && req.body.date) {
-        let name:string = req.body.name;
-        let cpf:string = req.body.cpf;
-        let email:string = req.body.email;
+    if((req.user as UserInstance).email && (req.user as UserInstance).id && req.body.date && req.body.hour) {
+        let email:string = (req.user as UserInstance).email;
+        let user_id:number = (req.user as UserInstance).id;
         let date:string = req.body.date;
-        
-        let newSchedule = await Schedule.create({
-            name, 
-            cpf,
+        let hour:string = req.body.hour;
+
+        await Schedule.create({
             email,
-            date
+            user_id,
+            date,
+            hour
         })
     } 
 

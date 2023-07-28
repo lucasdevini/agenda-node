@@ -3,10 +3,10 @@ import { sequelize } from '../instances/sql';
 
 export interface escheduleInstance extends Model {
     id: number,
-    name: string, 
-    cpf: string,  
     email: string,
-    date: Date
+    user_id: number,
+    date: Date,
+    hour: string
 }
 
 export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
@@ -15,18 +15,18 @@ export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
         autoIncrement: true,
         type: DataTypes.INTEGER
     },
-    name: {
-        type: DataTypes.STRING
-    },
-    cpf: {
-        type: DataTypes.INTEGER,
-        unique: true
-    },
     email: {
         type: DataTypes.STRING
     },
+    user_id: {
+        type: DataTypes.INTEGER,
+        unique: true
+    },
     date: {
         type: DataTypes.DATE
+    },
+    hour: {
+        type: DataTypes.TIME
     }
 }, {
     tableName: 'schedule',
