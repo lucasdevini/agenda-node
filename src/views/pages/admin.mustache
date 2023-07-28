@@ -6,43 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Solicitações de agendamento</h1>
-
-    <h2>Agendamentos feitos hoje - {{formattedDate}}</h2>
-    <ul>
-        {{#todayList}}
-            <li>Nome: {{name}} <br/> E-mail: {{email}}</li> <br/>
-        {{/todayList}}
-        {{^todayList}}
-            <p>Nenhum registro foi encontrado</p>
-        {{/todayList}}
-    </ul>
-
-    <h2>Próximos dias</h2>
-    <ul>
-        {{#list}}
-            <li>E-mail: {{email}} - Data: {{date}}</li>
-        {{/list}}
-        {{^list}}
-            <p>Nenhum registro foi encontrado</p>
-        {{/list}}
-    </ul>
-
-    <hr/>
-    <h2>Pesquise por uma data:</h2>
-    
-    <form action="/search" method="get">
-        <input type="date" name="search" id='search-date'>
-        <input type="submit" value="pesquisar">
-    </form>
-    
-    <script>
-        // Obtém a referência ao elemento do input de data
-        const inputData = document.getElementById('search-date');
-
-        // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
-        const dataAtual = new Date().toISOString().split('T')[0];
-        inputData.min = dataAtual;
-    </script>
+    <h1>Bem vindo!</h1>
+    <p>O que deseja acessar ?</p>
+    <a href='/pending-schedules'>Agendamentos pendentes</a> <br/>
+    <a href='/confirmed-schedules'>Agendamentos confirmados</a>
 </body>
 </html>

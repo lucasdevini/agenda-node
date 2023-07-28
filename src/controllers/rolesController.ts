@@ -1,10 +1,16 @@
 import { Request, Response } from "express";
 import { Schedule } from "../models/schedules";
 import sequelize, { Op } from "sequelize";
-import { UserInstance } from "../models/user";
+import { User, UserInstance } from "../models/user";
 
 // Controller do usuário
-export const user = async (req: Request, res: Response) => {
+export const userPage = async (req: Request, res: Response) => {
+    const userEmail = (req.user as UserInstance).email
+
+    res.render('pages/user', { userEmail });
+}
+
+export const scheduleForm = async (req: Request, res: Response) => {
     if((req.user as UserInstance).email && (req.user as UserInstance).id && req.body.date && req.body.hour) {
         let email:string = (req.user as UserInstance).email;
         let user_id:number = (req.user as UserInstance).id;
@@ -19,11 +25,40 @@ export const user = async (req: Request, res: Response) => {
         })
     } 
 
-    res.render('pages/user');
+    res.render('pages/scheduleForm');
 } 
 
-// Controller do admin
-export const admin = async (req: Request, res: Response) => {
+export const mySchedules = async (req: Request, res: Response) => {
+    console.log(req.user);
+
+    const user = await User.findOne({
+        where: {
+            id: (req.user as UserInstance).id,
+            email: (req.user as UserInstance).email
+        }
+    })
+
+    console.log(user);
+
+    const id = user?.id;
+    const email = user?.email;
+
+    const schedules = await Schedule.findAll({
+        where: {
+            user_id: id,
+            email: email
+        }
+    })
+
+    res.render('pages/mySchedules', { schedules })
+}
+
+// Controllers do admin
+export const adminPage = (req: Request, res: Response) => {
+    res.render('pages/admin');
+}
+
+export const pendingSchedules = async (req: Request, res: Response) => {
     // Pega a data atual
     const today = new Date();
     const formattedDate = today.toISOString().substring(0, 10);
@@ -33,7 +68,8 @@ export const admin = async (req: Request, res: Response) => {
         where: {
             date: {
                 [Op.eq]: sequelize.literal(`DATE('${formattedDate}')`),
-            }
+            }, 
+            status: 'pending'
         }
     });
 
@@ -42,21 +78,77 @@ export const admin = async (req: Request, res: Response) => {
         where: {
             date: {
                 [Op.gt]: sequelize.literal(`DATE('${formattedDate}')`)
-            }
+            },
+            status: 'pending'
         }
     });
 
-    res.render('pages/admin', {list, todayList, formattedDate});
+    res.render('pages/pendingSchedules', {list, todayList, formattedDate});
 }
 
-export const search = async (req: Request, res: Response) => {
+export const confirmedSchedules = async (req: Request, res: Response) => {
+    // Pega a data atual
+    const today = new Date();
+    const formattedDate = today.toISOString().substring(0, 10);
+
+    // Pega todos agendamentos feitos na data atual
+    const todayList = await Schedule.findAll({
+        where: {
+            date: {
+                [Op.eq]: sequelize.literal(`DATE('${formattedDate}')`),
+            },
+            status: 'accept'
+        }
+    });
+
+    // Agendamentos dos dias seguintes
+    const list = await Schedule.findAll({
+        where: {
+            date: {
+                [Op.gt]: sequelize.literal(`DATE('${formattedDate}')`)
+            },
+            status: 'accept'
+        }
+    });
+
+    res.render('pages/confirmedschedules', {list, todayList, formattedDate});
+}
+
+export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
+    const email:string = req.body.email;
+    const status:string = req.body.status;
+
+    if(status === 'accept') {
+        const schedule = await Schedule.findOne({
+            where: {
+                email,
+            }
+        });
+
+        if(schedule) {
+            schedule.status = status;
+            await schedule.save();
+        }
+    } else {
+        await Schedule.destroy({
+            where: {
+                email,
+            }
+        });
+    }
+
+    return res.redirect('/admin');
+}
+
+export const searchPending = async (req: Request, res: Response) => {
    let searchedDate: string = req.query.search as string;
    
    const list = await Schedule.findAll({
        where: {
            date: {
                [Op.eq]: sequelize.literal(`DATE('${searchedDate}')`)
-           } 
+           },
+           status: 'pending' 
        } 
    }) 
 
@@ -67,3 +159,23 @@ export const search = async (req: Request, res: Response) => {
 
    res.render('pages/search', {searchedDate, list});
 }
+
+export const searchConfirmed = async (req: Request, res: Response) => {
+    let searchedDate: string = req.query.search as string;
+    
+    const list = await Schedule.findAll({
+        where: {
+            date: {
+                [Op.eq]: sequelize.literal(`DATE('${searchedDate}')`)
+            },
+            status: 'accept'
+        } 
+    }) 
+ 
+    if(!searchedDate) {
+        res.redirect('/admin');
+        return;  
+    }
+ 
+    res.render('pages/search', {searchedDate, list});
+ }

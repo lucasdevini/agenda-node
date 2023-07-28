@@ -6,7 +6,8 @@ export interface escheduleInstance extends Model {
     email: string,
     user_id: number,
     date: Date,
-    hour: string
+    hour: string,
+    status: string
 }
 
 export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
@@ -27,6 +28,9 @@ export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
     },
     hour: {
         type: DataTypes.TIME
+    },
+    status: {
+        type: DataTypes.STRING
     }
 }, {
     tableName: 'schedule',

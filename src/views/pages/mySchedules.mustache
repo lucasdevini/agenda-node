@@ -1,0 +1,9 @@
+<h2>Seus agendamentos: </h2>
+    <ul>
+        {{#schedules}}
+            <li>Data: {{date}} <br/> Hora: {{hour}} <br/> Status: {{status}}</li> <br/>
+        {{/schedules}}
+        {{^schedules}}
+            <p>Nenhum agendamento foi feito!</p>
+        {{/schedules}}
+</ul>
