@@ -115,13 +115,16 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
 }
 
 export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
+    const id:number = req.body.id;
     const email:string = req.body.email;
     const status:string = req.body.status;
+
+    console.log(req.body.id)
 
     if(status === 'accept') {
         const schedule = await Schedule.findOne({
             where: {
-                email,
+                id
             }
         });
 
@@ -132,12 +135,12 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
     } else {
         await Schedule.destroy({
             where: {
-                email,
+                id
             }
         });
     }
 
-    return res.redirect('/admin');
+    return res.redirect('/pending-schedules');
 }
 
 export const searchPending = async (req: Request, res: Response) => {

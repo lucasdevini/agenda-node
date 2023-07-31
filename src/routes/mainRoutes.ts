@@ -26,9 +26,10 @@ router.get('/my-schedules', privateRoute, rolesController.mySchedules)
 router.get('/admin', adminPrivateRoute, rolesController.adminPage);
 
 router.get('/pending-schedules', adminPrivateRoute, rolesController.pendingSchedules);
+router.post('/pending-schedules', adminPrivateRoute, rolesController.acceptOrRefuseSchedule);
+
 router.get('/confirmed-schedules', adminPrivateRoute, rolesController.confirmedSchedules);
 
-router.post('/admin', adminPrivateRoute, rolesController.acceptOrRefuseSchedule);
 
 router.get('/search-pending', adminPrivateRoute, rolesController.searchPending);
 router.get('/search-confirmed', adminPrivateRoute, rolesController.searchConfirmed);

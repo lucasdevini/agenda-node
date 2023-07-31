@@ -21,8 +21,9 @@
         {{#list}}
             <li>
                 <fieldset>
-                    E-mail: {{email}} - Data: {{date}} 
-                    <form id="accept-form" action="/admin" method="post">
+                    E-mail: {{email}} - Data: {{date}} - id {{id}}
+                    <form id="accept-form" action="/pending-schedules" method="post">
+                        <input type="hidden" name="id" value="{{id}}">
                         <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="accept">
                         <input type='submit' value='aceitar'>
@@ -30,7 +31,8 @@
 
                     <br/>
 
-                    <form id="refuse-form" action="/admin" method="post">
+                    <form id="refuse-form" action="/pending-schedules" method="post">
+                        <input type="hidden" name="id" value="{{id}}">
                         <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="refuse">
                         <input type='submit' value='recusar'>
