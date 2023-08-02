@@ -160,7 +160,7 @@ export const searchPending = async (req: Request, res: Response) => {
        return;  
    }
 
-   res.render('pages/search', {searchedDate, list});
+   res.render('pages/searchPending', {searchedDate, list});
 }
 
 export const searchConfirmed = async (req: Request, res: Response) => {
@@ -180,5 +180,5 @@ export const searchConfirmed = async (req: Request, res: Response) => {
         return;  
     }
  
-    res.render('pages/search', {searchedDate, list});
- }
+    res.render('pages/searchConfirmed', {searchedDate, list});
+}

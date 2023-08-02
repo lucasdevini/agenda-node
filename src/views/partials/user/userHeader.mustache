@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/output.css">
+</head>
+<body class="container mx-auto">
+    <header class="w-full h-20 flex px-8 py-4 justify-between items-center bg-[#E47B38]">
+        <div class="text-2xl font-bold">
+            LOGO
+        </div>
+            
+        <div class="hidden md:flex">
+            <ul class="flex items-center gap-4 text-white">
+                <li>
+                    <a href="/user" class="font-bold hover:underline hover:text-[#374A90] transition ease-in">Início</a>
+                </li>
+                <li>
+                    <a href="/schedule-form" class="font-bold hover:underline hover:text-[#374A90] transition ease-in">Realizar agendamento</a>
+                </li>
+                <li>
+                    <a href="/my-schedules" class="font-bold hover:underline hover:text-[#374A90] transition ease-in">Meus agendamentos</a>
+                </li>
+
+                <li>
+                    <form id="logout-form" action="/logout" method="post" class='flex items-center gap-2 p-2 border rounded font-bold cursor-pointer hover:underline hover:border-[#374A90] hover:text-[#374A90] transition ease-in'>
+                        <input type='submit' value='Sair' class='cursor-pointer'>
+                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>   
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <div class="md:hidden">
+            <svg class="w-20 h-20 cursor-pointer stroke-[#374A90]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>     
+        </div>
+    </header>

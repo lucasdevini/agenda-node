@@ -1,65 +1,97 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Agendamentos feitos hoje - {{formattedDate}}</h2>
-    <ul>
-        {{#todayList}}
-            <li>Nome: {{name}} <br/> E-mail: {{email}}</li> <br/>
-        {{/todayList}}
-        {{^todayList}}
-            <p>Nenhum registro foi encontrado</p>
-        {{/todayList}}
-    </ul>
+{{>partials/admin/adminHeader}}
+    <main>
+        <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Agendamentos feitos hoje - {{formattedDate}}</h2>
+        <ul>
+            {{#todayList}}
+                <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
+                    <div class="border-b-2 border-white">
+                        <span class="font-bold">E-mail:</span> {{email}}
+                    </div>
 
-    <h2>Próximos dias</h2>
-    <ul>
-        {{#list}}
-            <li>
-                <fieldset>
-                    E-mail: {{email}} - Data: {{date}} - id {{id}}
-                    <form id="accept-form" action="/pending-schedules" method="post">
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Data:</span> {{date}}
+                    </div>  
+
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Hora:</span> {{hour}}
+                    </div> 
+
+                    <div class="flex justify-center gap-16">
+                        <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <input type="hidden" name="email" value="{{email}}">
+                            <input type="hidden" name="status" value="accept">
+                            <input type='submit' value='Aceitar' class="cursor-pointer">
+                        </form> 
+    
+                        <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <input type="hidden" name="email" value="{{email}}">
+                            <input type="hidden" name="status" value="refuse">
+                            <input type='submit' value='Recusar' class="cursor-pointer">
+                        </form>
+                    </div>
+                </li>
+            {{/todayList}}
+            {{^todayList}}
+                <p class="text-bold text-[#374A90] text-2xl">Nenhum registro foi encontrado</p>
+            {{/todayList}}
+        </ul>
+    
+        <h2 class="my-4  text-bold text-[#E47B38] text-3xl">Próximos dias</h2>
+        <ul>
+            {{#list}}
+            <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
+                <div class="border-b-2 border-white">
+                    <span class="font-bold">E-mail:</span> {{email}}
+                </div>
+
+                <div class="my-4 border-b-2 border-white">
+                    <span class="font-bold">Data:</span> {{date}}
+                </div>  
+
+                <div class="my-4 border-b-2 border-white">
+                    <span class="font-bold">Hora:</span> {{hour}}
+                </div> 
+
+                <div class="flex justify-center gap-16">
+                    <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
                         <input type="hidden" name="id" value="{{id}}">
                         <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="accept">
-                        <input type='submit' value='aceitar'>
+                        <input type='submit' value='Aceitar' class="cursor-pointer">
                     </form> 
 
-                    <br/>
-
-                    <form id="refuse-form" action="/pending-schedules" method="post">
+                    <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
                         <input type="hidden" name="id" value="{{id}}">
                         <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="refuse">
-                        <input type='submit' value='recusar'>
+                        <input type='submit' value='Recusar' class="cursor-pointer">
                     </form>
-                </fieldset>
-            </li> <br/>
-        {{/list}}
-        {{^list}}
-            <p>Nenhum registro foi encontrado</p>
-        {{/list}}
-    </ul>
-
-    <hr/>
-    <h2>Pesquise por uma data:</h2>
+                </div>
+            </li>
+            {{/list}}
+            {{^list}}
+                <p class="text-bold text-[#374A90] text-2xl">Nenhum registro foi encontrado</p>
+            {{/list}}
+        </ul>
     
-    <form action="/search-pending" method="get">
-        <input type="date" name="search" id='search-date'>
-        <input type="submit" value="pesquisar">
-    </form>
+        <hr/>
+        <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Pesquise por uma data:</h2>
+        
+        <form action="/search-pending" method="get">
+            <input type="date" name="search" id='search-date' class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
+            <input type="submit" value="pesquisar" class="p-1 ml-2 rounded cursor-pointer transition ease-in text-white bg-[#374A90]">
+        </form>
+        
+        <script>
+            // Obtém a referência ao elemento do input de data
+            const inputData = document.getElementById('search-date');
     
-    <script>
-        // Obtém a referência ao elemento do input de data
-        const inputData = document.getElementById('search-date');
-
-        // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
-        const dataAtual = new Date().toISOString().split('T')[0];
-        inputData.min = dataAtual;
-    </script>
+            // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
+            const dataAtual = new Date().toISOString().split('T')[0];
+            inputData.min = dataAtual;
+        </script>
+    </main>
 </body>
 </html>

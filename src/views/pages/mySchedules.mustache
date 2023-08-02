@@ -1,9 +1,19 @@
-<h2>Seus agendamentos: </h2>
-    <ul>
-        {{#schedules}}
-            <li>Data: {{date}} <br/> Hora: {{hour}} <br/> Status: {{status}}</li> <br/>
-        {{/schedules}}
-        {{^schedules}}
-            <p>Nenhum agendamento foi feito!</p>
-        {{/schedules}}
-</ul>
+{{>partials/user/userHeader}}
+
+        <h2 class="text-3xl font-bold text-center text-[#282828]">Seus agendamentos:</h2>
+            <ul class="w-full flex flex-wrap justify-center gap-4">
+                {{#schedules}}                    
+                    <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
+                        <div class="border-b-2 border-white">
+                            <span class="font-bold">Data:</span> {{date}}
+                        </div> 
+                        <div class="my-4 border-b-2 border-white"><span class="font-bold">Hora:</span> {{hour}}</div> 
+                        <div class="border-b-2 border-white"><span class="font-bold">Status:</span> {{status}}</div>
+                    </li>
+                {{/schedules}}
+                {{^schedules}}
+                    <p>Nenhum agendamento foi feito!</p>
+                {{/schedules}}
+            </ul>
+    </body>
+</html>

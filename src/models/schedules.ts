@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../instances/sql';
 
-export interface escheduleInstance extends Model {
+export interface ScheduleInstance extends Model {
     id: number,
     email: string,
     user_id: number,
@@ -10,7 +10,7 @@ export interface escheduleInstance extends Model {
     status: string
 }
 
-export const Schedule = sequelize.define<escheduleInstance>('Schedule', {
+export const Schedule = sequelize.define<ScheduleInstance>('Schedule', {
     id: {
         primaryKey: true,
         autoIncrement: true,

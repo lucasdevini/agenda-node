@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
-    <main>
-        <form action="/register" method="post">
-            <label for="email">Digite seu e-mail:</label> <br>
-            <input type="email" name="email" id="email"> <br><br>
+<body class="container mx-auto bg-[#374A90]">
+    <main class="w-full h-screen flex justify-center items-center">
+        <form action="/register" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
+            <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
+            <input type="email" name="email" id="email" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
-            <label for="password">Digite sua senha: </label> <br>
-            <input type="password" name="password" id="password"> <br><br>
+            <label for="password" class="font-bold">Digite sua senha: </label> <br>
+            <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
-            <input type="submit" value="Finalizar">
+            <input type="submit" value="Registrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
         </form>
     </main>
 </body>
