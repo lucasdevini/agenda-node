@@ -3,16 +3,17 @@ import { Router } from "express";
 import * as authController from '../controllers/authController';
 import * as rolesController from '../controllers/rolesController';
 import { authenticate, privateRoute, adminPrivateRoute } from "../passport";
+import { userValidation } from "../validations/user";
 
 const router = Router();
 
 // rotas de registro
 router.get('/register', authController.registerPage)
-router.post('/register', authController.register);
+router.post('/register', userValidation, authController.register);
 
 // rotas de login
 router.get('/login', authController.loginPage);
-router.post('/login', authenticate());
+router.post('/login', userValidation, authenticate());
 
 // Rotas de usuário
 router.get('/user', privateRoute, rolesController.userPage);
