@@ -1,31 +1,35 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from 'bcrypt';
+import { validationResult } from 'express-validator';
+import { userValidation } from "../validations/user";
 
 import { User } from "../models/user";
 
 export const register = async (req: Request, res: Response) => {
-    if(req.body.email && req.body.password) {
-        try {
-            let email:string = req.body.email;
-            let password:string = req.body.password;
+    try {
+        const errors = validationResult(req);
+        const errorMessages = errors.array().map(error => error.msg);
 
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            User.create({
-                email,
-                password: hashedPassword
-            })
-
-            res.redirect('/login');
-        } catch(err) {
-            console.log(err);
-            res.redirect('/register');
+        if (!errors.isEmpty()) {
+            return res.render('pages/register', { errors: errorMessages });
         }
-    } else {
-        console.log('Informe seu email e sua senha!');
+
+        const email: string = req.body.email;
+        const password: string = req.body.password;
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await User.create({
+            email,
+            password: hashedPassword
+        });
+
+        res.redirect('/login');
+    } catch (err) {
+        console.error(err);
         res.redirect('/register');
-    } 
-}
+    }
+};
 
 export const registerPage = (req: Request, res: Response) => {
     res.render('pages/register');
