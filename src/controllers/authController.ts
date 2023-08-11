@@ -10,7 +10,6 @@ export const register = async (req: Request, res: Response) => {
         const errorMessages = errors.array().map(error => error.msg);
 
         if (!errors.isEmpty()) {
-            res.status(400).json({ errors: errorMessages });
             return res.render('pages/register', { errors: errorMessages });
         }
 
@@ -24,8 +23,8 @@ export const register = async (req: Request, res: Response) => {
             password: hashedPassword
         });
 
-        res.status(200).json({ message: 'Registro realizado com sucesso' });
-        return res.redirect('/login');
+        const successMessage = 'Cadastro realizado com sucesso!';
+        return res.redirect(`/login?success=${encodeURIComponent(successMessage)}`);
     } catch (err) {
         res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
         return res.redirect('/register');
@@ -37,7 +36,9 @@ export const registerPage = (req: Request, res: Response) => {
 }
 
 export const loginPage = (req: Request, res: Response) => {
-    res.render('pages/login');
+    const successRegisterMessage = req.query.success as string;
+    
+    res.render('pages/login', { successRegisterMessage});
 }
 
 export const logout = (req: Request, res: Response, next: NextFunction) => {
