@@ -39,11 +39,17 @@ export function initialize(passport:any) {
     async (email:string, password:string, done) => {
         try {
             const user = await findUser(email);
-            if(!user) return done(null, false);
+
+            if (!user) {
+                return done(null, false, { message: 'Usuário não encontrado.' });
+            }
             
             const isValid = await bcrypt.compare(password, user.password);
 
-            if(!isValid) return done(null, false);
+            if (!isValid) {
+                return done(null, false, { message: 'Senha incorreta.' });
+            }
+
             return done(null, user);
         } catch(err) {
             console.log(err);
@@ -59,7 +65,9 @@ export function authenticate() {
                 return next(err);
             }
             if (!user) {
-                return res.redirect('/login');
+                const errorLoginMessage = info.message
+
+                return res.render('pages/login', { errorLoginMessage });
             }
 
             // preenche req.user
