@@ -4,6 +4,7 @@ import * as authController from '../controllers/authController';
 import * as rolesController from '../controllers/rolesController';
 import { authenticate, privateRoute, adminPrivateRoute } from "../passport";
 import { userValidation } from "../validations/user";
+import { scheduleValidation } from "../validations/schedule";
 
 const router = Router();
 
@@ -18,8 +19,8 @@ router.post('/login', userValidation, authenticate());
 // Rotas de usuário
 router.get('/user', privateRoute, rolesController.userPage);
 
-router.get('/schedule-form', privateRoute, rolesController.scheduleForm);
-router.post('/schedule-form', privateRoute, rolesController.scheduleForm); 
+router.get('/schedule-form', privateRoute, rolesController.scheduleFormPage);
+router.post('/schedule-form', privateRoute, scheduleValidation, rolesController.scheduleForm); 
 
 router.get('/my-schedules', privateRoute, rolesController.mySchedules)
 
