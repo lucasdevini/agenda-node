@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import bcrypt from 'bcrypt';
 import { validationResult } from 'express-validator';
-import { userValidation } from "../validations/user";
 
 import { User } from "../models/user";
 
@@ -11,6 +10,7 @@ export const register = async (req: Request, res: Response) => {
         const errorMessages = errors.array().map(error => error.msg);
 
         if (!errors.isEmpty()) {
+            res.status(400).json({ errors: errorMessages });
             return res.render('pages/register', { errors: errorMessages });
         }
 
@@ -24,10 +24,11 @@ export const register = async (req: Request, res: Response) => {
             password: hashedPassword
         });
 
-        res.redirect('/login');
+        res.status(200).json({ message: 'Registro realizado com sucesso' });
+        return res.redirect('/login');
     } catch (err) {
-        console.error(err);
-        res.redirect('/register');
+        res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
+        return res.redirect('/register');
     }
 };
 
