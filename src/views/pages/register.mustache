@@ -9,6 +9,12 @@
 <body class="container mx-auto bg-[#374A90]">
     <main class="w-full h-screen flex justify-center items-center">
         <form action="/register" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
+            {{#errors}}
+                <p>
+                    {{.}}
+                </p>
+            {{/errors}}
+
             <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
             <input type="email" name="email" id="email" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
