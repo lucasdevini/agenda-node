@@ -54,6 +54,8 @@
                     } else if (responseData.error) {
                         alert(responseData.error);
                     }
+                } else if(response.status === 429) {
+                    alert(responseData.limitError);
                 } else if(response.status === 200) {
                     if(responseData.admin) {
                         window.location.href = '/admin';
