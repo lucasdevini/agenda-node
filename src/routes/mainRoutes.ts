@@ -5,6 +5,7 @@ import * as rolesController from '../controllers/rolesController';
 import { authenticate, privateRoute, adminPrivateRoute } from "../passport";
 import { userValidation } from "../validations/user";
 import { scheduleValidation } from "../validations/schedule";
+import { limiter } from "../middlewares/limitRate";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.post('/register', userValidation, authController.register);
 
 // rotas de login
 router.get('/login', authController.loginPage);
-router.post('/login', userValidation, authenticate());
+router.post('/login', limiter, userValidation, authenticate());
 
 // Rotas de usuário
 router.get('/user', privateRoute, rolesController.userPage);
@@ -31,7 +32,6 @@ router.get('/pending-schedules', adminPrivateRoute, rolesController.pendingSched
 router.post('/pending-schedules', adminPrivateRoute, rolesController.acceptOrRefuseSchedule);
 
 router.get('/confirmed-schedules', adminPrivateRoute, rolesController.confirmedSchedules);
-
 
 router.get('/search-pending', adminPrivateRoute, rolesController.searchPending);
 router.get('/search-confirmed', adminPrivateRoute, rolesController.searchConfirmed);
