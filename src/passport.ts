@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Strategy as LocalStrategy }  from 'passport-local';
 import bcrypt from 'bcrypt';
 import passport from "passport";
+import { validationResult } from 'express-validator';
 
 import { User, UserInstance } from './models/user';
 
@@ -64,10 +65,19 @@ export function authenticate() {
             if (err) {
                 return next(err);
             }
-            if (!user) {
-                const errorLoginMessage = info.message
 
-                return res.render('pages/login', { errorLoginMessage });
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                const errorMessages = errors.array().map(error => error.msg);
+
+                console.log(errorMessages)
+
+                return res.status(400).json({ errors: errorMessages });
+            } 
+            
+            if (!user) {
+                return res.status(400).json({error: info.message})
             }
 
             // preenche req.user
@@ -81,9 +91,9 @@ export function authenticate() {
 
                 // Redireciona de acordo com a role
                 if (userRole === 'admin') {
-                    res.redirect('/admin');
+                    res.status(200).json({admin: 'Usuário logado com suceso!'})
                 } else {
-                    res.redirect('/user');
+                    res.status(200).json({user: 'Usuário logado com suceso!'})
                 }
             });
         })(req, res, next);
@@ -92,6 +102,7 @@ export function authenticate() {
 
 export function privateRoute(req: Request, res: Response, next: NextFunction) {
     if(req.isAuthenticated()) return next();
+    
     res.redirect('/login');
 }
 

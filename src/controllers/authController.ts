@@ -6,25 +6,36 @@ import { User } from "../models/user";
 
 export const register = async (req: Request, res: Response) => {
     try {
+        console.log("CORPO DA REQUISIÇÃO:", req.body);
+
         const errors = validationResult(req);
-        const errorMessages = errors.array().map(error => error.msg);
 
         if (!errors.isEmpty()) {
-            return res.render('pages/register', { errors: errorMessages });
+            const errorMessages = errors.array().map(error => error.msg);
+            return res.status(400).json({ errors: errorMessages });
         }
 
         const email: string = req.body.email;
         const password: string = req.body.password;
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = await User.findOne({
+            where: {
+                email
+            }
+        })
 
-        await User.create({
-            email,
-            password: hashedPassword
-        });
+        if(!user) {
+            const hashedPassword = await bcrypt.hash(password, 10);
 
-        const successMessage = 'Cadastro realizado com sucesso!';
-        return res.redirect(`/login?success=${encodeURIComponent(successMessage)}`);
+            await User.create({
+                email,
+                password: hashedPassword
+            });
+
+            return res.status(200).json({ ok:  "Cadastro realizado com sucesso" });
+        } else {
+            return res.status(400).json({error: 'Usuário já existe na base de dados!'})
+        }
     } catch (err) {
         res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
         return res.redirect('/register');
@@ -37,7 +48,7 @@ export const registerPage = (req: Request, res: Response) => {
 
 export const loginPage = (req: Request, res: Response) => {
     const successRegisterMessage = req.query.success as string;
-    
+
     res.render('pages/login', { successRegisterMessage});
 }
 
