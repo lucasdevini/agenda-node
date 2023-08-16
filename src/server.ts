@@ -26,6 +26,7 @@ server.use(express.static(path.join(__dirname, '../dist')));
 server.use(cookieParser()); 
 server.use(cors()); 
 server.use(express.urlencoded({extended: true}));
+server.use(express.json());
 
 // habilitando as sessões
 server.use(session({
