@@ -22,5 +22,50 @@
             <input type="submit" value="Entrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
         </form>
     </main>
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const email = form.querySelector('[name="email"]').value;
+            const password = form.querySelector('[name="password"]').value;
+
+            const requestData = {
+                email: email,
+                password: password
+            };
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                const responseData = await response.json();
+
+                if (response.status === 400) {
+                    if (responseData.errors) {
+                        alert(responseData.errors.join('\n'));
+                    } else if (responseData.error) {
+                        alert(responseData.error);
+                    }
+                } else if(response.status === 200) {
+                    if(responseData.admin) {
+                        window.location.href = '/admin';
+                    } else if(responseData.user) {
+                        window.location.href = '/user';
+                    }
+                }
+            } catch (error) {
+                console.log(error)
+                alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
+            }
+        });
+    </script>
 </body>
 </html>
