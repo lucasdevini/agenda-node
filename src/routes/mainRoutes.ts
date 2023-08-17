@@ -11,11 +11,11 @@ import { limiter } from "../middlewares/limitRate";
 const router = Router();
 
 // rotas de registro
-router.get('/register', authController.registerPage)
-router.post('/register', userSignUpValidation, authController.register);
+router.get('/register', authController.signUpPage)
+router.post('/register', userSignUpValidation, authController.signUp);
 
 // rotas de login
-router.get('/login', authController.loginPage);
+router.get('/login', authController.signInPage);
 router.post('/login', limiter, userSignInValidation, authenticate());
 
 // Rotas de usuário

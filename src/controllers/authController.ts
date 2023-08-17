@@ -4,10 +4,8 @@ import { validationResult } from 'express-validator';
 
 import { User } from "../models/user";
 
-export const register = async (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
     try {
-        console.log("CORPO DA REQUISIÇÃO:", req.body);
-
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -48,11 +46,11 @@ export const register = async (req: Request, res: Response) => {
     }
 };
 
-export const registerPage = (req: Request, res: Response) => {
+export const signUpPage = (req: Request, res: Response) => {
     res.render('pages/register');
 }
 
-export const loginPage = (req: Request, res: Response) => {
+export const signInPage = (req: Request, res: Response) => {
     const successRegisterMessage = req.query.success as string;
 
     res.render('pages/login', { successRegisterMessage});
