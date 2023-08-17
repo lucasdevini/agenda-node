@@ -1,11 +1,11 @@
 import { body } from "express-validator";
 
-export const userValidation = [
+export const userSignInValidation = [
     body("email")
-    .trim()
-    .notEmpty().withMessage("Email obrigatório!")
-    .if(body("email").notEmpty())
-    .isEmail().withMessage("Formato de email não reconhecido"),
+        .trim()
+        .notEmpty().withMessage("Email obrigatório!")
+        .if(body("email").notEmpty())
+        .isEmail().withMessage("Formato de email não reconhecido"),
     body("password")
         .notEmpty().withMessage("Senha obrigatória!")
         .if(body("password").notEmpty())
