@@ -9,8 +9,17 @@
 <body class="container mx-auto bg-[#374A90]">
     <main class="w-full h-screen flex justify-center items-center">
         <form action="/register" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
+            <label for="name" class="font-bold">Digite seu  nome:</label> <br>
+            <input type="text" name="name" id="name" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+
+            <label for="date" class="font-bold">Digite sua data de nascimento:</label> <br>
+            <input type="date" name="date" id="date" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+
             <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
             <input type="email" name="email" id="email" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+
+            <label for="phone" class="font-bold">Digite seu número de telefone:</label> <br>
+            <input type="text" name="phone" id="phone" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="password" class="font-bold">Digite sua senha: </label> <br>
             <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
@@ -21,16 +30,32 @@
 
     <script>
         const form = document.querySelector('form');
+  
+        const birthDateInput = document.getElementById("date");
+
+        const today = new Date();
+        const maxAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+        const maxYear = maxAgeDate.getFullYear();
+        const maxMonth = (maxAgeDate.getMonth() + 1).toString().padStart(2, '0');
+        const maxDay = maxAgeDate.getDate().toString().padStart(2, '0');
+        birthDateInput.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
+            const name = form.querySelector('[name="name"]').value;
+            const date = form.querySelector('[name="date"]').value;
             const email = form.querySelector('[name="email"]').value;
+            const phone = form.querySelector('[name="phone"]').value;
             const password = form.querySelector('[name="password"]').value;
 
             const requestData = {
-                email: email,
-                password: password
+                name,
+                date,
+                email,
+                phone,
+                password,
             };
 
             try {
@@ -53,6 +78,9 @@
                     } else if (responseData.error) {
                         alert(responseData.error);
                     }
+                } else if(response.status === 500) {
+                    alert(responseData.error);
+                    window.location.href = '/register';
                 }
             } catch (error) {
                 alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
