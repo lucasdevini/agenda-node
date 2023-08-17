@@ -15,12 +15,16 @@ export const register = async (req: Request, res: Response) => {
             return res.status(400).json({ errors: errorMessages });
         }
 
+        const name: string = req.body.name;
+        const date: string = req.body.date;
         const email: string = req.body.email;
+        const phone: string = req.body.phone;
         const password: string = req.body.password;
 
         const user = await User.findOne({
             where: {
-                email
+                email,
+                phone
             }
         })
 
@@ -28,7 +32,10 @@ export const register = async (req: Request, res: Response) => {
             const hashedPassword = await bcrypt.hash(password, 10);
 
             await User.create({
+                name,
+                date,
                 email,
+                phone,
                 password: hashedPassword
             });
 
@@ -38,7 +45,6 @@ export const register = async (req: Request, res: Response) => {
         }
     } catch (err) {
         res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
-        return res.redirect('/register');
     }
 };
 
