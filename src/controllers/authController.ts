@@ -1,8 +1,10 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import bcrypt from 'bcrypt';
 import { validationResult } from 'express-validator';
+import sequelize, { Op } from "sequelize";
 
 import { User } from "../models/user";
+
 
 export const signUp = async (req: Request, res: Response) => {
     try {
@@ -63,3 +65,48 @@ export const logout = (req: Request, res: Response, next: NextFunction) => {
         res.redirect('/login');
     });
 };
+
+export const forgotPasswordPage = (req: Request, res: Response) => {
+    res.render("pages/forgotPassword");
+}
+
+export const forgotPassword = async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        const errorMessages = errors.array().map(error => error.msg);
+        return res.status(400).json({ errors: errorMessages });
+    }
+
+    const date = req.body.date;
+    const email = req.body.email;
+    const phone = req.body.phone;
+
+    const user = await User.findOne({
+        where: {
+            date: {
+                [Op.eq]: sequelize.literal(`DATE('${date}')`)
+            },
+            email, 
+            phone
+        }
+    })
+
+    if(user) {
+        res.cookie('user_authenticated', true, { 
+            maxAge: 900000,
+            httpOnly: true  
+        });
+        return res.status(200).json({ok: true})
+    } else {
+        return res.status(400).json({error: 'Usuário inexistente'});
+    }
+}
+
+export const questionPage = async (req: Request, res: Response) => {
+    res.render('pages/question');
+}
+
+export const question = async (req: Request, res: Response) => {
+
+}
