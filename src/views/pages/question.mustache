@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="POST">
+            <label for="code" class="font-bold">Digite seu número de telefone:</label> <br>
+            <input type="text" name="code" id="code" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+
+            <button>Enviar</button>
+    </form>
+
+    <script>
+        const birthDateInput = document.getElementById("date");
+
+        const today = new Date();
+        const maxAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+        const maxYear = maxAgeDate.getFullYear();
+        const maxMonth = (maxAgeDate.getMonth() + 1).toString().padStart(2, '0');
+        const maxDay = maxAgeDate.getDate().toString().padStart(2, '0');
+        birthDateInput.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
+    </script>
+</body>
+</html>
