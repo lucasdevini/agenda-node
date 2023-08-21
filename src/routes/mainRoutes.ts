@@ -6,7 +6,9 @@ import { authenticate, privateRoute, adminPrivateRoute } from "../passport";
 import { userSignUpValidation } from "../validations/userSignUp";
 import { scheduleValidation } from "../validations/schedule";
 import { userSignInValidation } from "../validations/userSignIn";
+import { forgotPasswordValidation } from "../validations/forgotPassword";
 import { limiter } from "../middlewares/limitRate";
+import { answerQuestionMiddleare } from '../middlewares/answerQuestionMiddleware'
 
 const router = Router();
 
@@ -36,6 +38,14 @@ router.get('/confirmed-schedules', adminPrivateRoute, rolesController.confirmedS
 
 router.get('/search-pending', adminPrivateRoute, rolesController.searchPending);
 router.get('/search-confirmed', adminPrivateRoute, rolesController.searchConfirmed);
+
+// Rota "esqueci minha senha"
+router.get('/forgot-password', authController.forgotPasswordPage);
+router.post('/forgot-password', forgotPasswordValidation, authController.forgotPassword);
+
+// Rota "perguntas de segurança"
+router.get('/question', answerQuestionMiddleare, authController.questionPage);
+router.post('/question', answerQuestionMiddleare, authController.question);
 
 // Rota de logout
 router.post('/logout', authController.logout);
