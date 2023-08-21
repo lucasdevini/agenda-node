@@ -35,7 +35,6 @@ export const scheduleForm = async (req: Request, res: Response) => {
             })
 
             res.status(200).json({ message: 'Agendamento realizado com sucesso' });
-            return res.redirect("/my-schedules");
         }
     } catch (err) {
         res.redirect('/schedule-form');
