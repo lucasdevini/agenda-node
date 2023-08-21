@@ -24,11 +24,38 @@
             <label for="password" class="font-bold">Digite sua senha: </label> <br>
             <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
+            <label for="pergunta1">Primeira pergunta de segurança:</label>
+            <select id="pergunta1" name="pergunta1" onchange="updateSelectOptions(this.value)">
+                <option value="0">-- Selecione uma pergunta --</option>
+                <option value="1">Qual é o nome da sua mãe?</option>
+                <option value="2">Qual é o nome do seu animal de estimação?</option>
+            </select>
+
+            <br>
+
+            <label for="resposta1">Responda à primeira pergunta:</label>
+            <input type="text" id="resposta1" name="resposta1">
+            <br><br>
+            
+            <label for="pergunta2">Segunda pergunta de segurança:</label>
+            <select id="pergunta2" name="pergunta2" onchange="updateSelectOptions(this.value)">
+                <option value="0">-- Selecione uma pergunta --</option>
+                <option value="1">Qual é o nome da sua mãe?</option>
+                <option value="2">Qual é o nome do seu animal de estimação?</option>
+            </select>
+
+            <br>
+
+            <label for="resposta2">Responda à segunda pergunta:</label>
+            <input type="text" id="resposta2" name="resposta2">
+            <br>
+
             <input type="submit" value="Registrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
         </form>
     </main>
 
     <script>
+        // Limita a usuários com 18 anos ou mais
         const form = document.querySelector('form');
   
         const birthDateInput = document.getElementById("date");
@@ -41,6 +68,22 @@
         const maxDay = maxAgeDate.getDate().toString().padStart(2, '0');
         birthDateInput.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
 
+        // Impede que uma mesma pergunta seja escolhida duas vezes
+        function updateSelectOptions(selectedValue) {
+            const selects = document.querySelectorAll('select');
+            
+            for (let i = 0; i < selects.length; i++) {
+                const select = selects[i];
+                if (select.value !== selectedValue) {
+                    const option = select.querySelector(`option[value="${selectedValue}"]`);
+                    if (option) {
+                        option.disabled = true;
+                    }
+                }
+            }
+        }
+
+        // Envia os dados para o backend
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
