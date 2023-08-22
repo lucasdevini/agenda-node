@@ -9,7 +9,7 @@ export interface QuestionInstance extends Model {
 
 export const Question = sequelize.define<QuestionInstance>('Questions',
 {
-    id: {
+    user_id: {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
