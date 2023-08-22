@@ -127,7 +127,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     })
 
     if(user) {
-        res.cookie('user_authenticated', true, { 
+        res.cookie('user_id', user.id, { 
             maxAge: 900000,
             httpOnly: true  
         });
@@ -138,9 +138,56 @@ export const forgotPassword = async (req: Request, res: Response) => {
 }
 
 export const questionPage = async (req: Request, res: Response) => {
-    res.render('pages/question');
+    const userId = req.cookies.user_id;
+    
+    const questions = await Question.findAll({
+        where: {
+            user_id: userId
+        }
+    });
+
+    const question1 = questions[0]?.question;
+    const question2 = questions[1]?.question;
+
+    res.render('pages/question', { question1, question2 });
 }
 
 export const question = async (req: Request, res: Response) => {
+    try {
+        const errors = validationResult(req);
 
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map(error => error.msg);
+            return res.status(400).json({ errors: errorMessages });
+        }
+
+        const userId = req.cookies.user_id;
+
+        res.clearCookie('user_id');
+        
+        const answer1: string = req.body.answer1;
+        const answer2: string = req.body.answer2;
+
+        const answers = await Question.findAll({
+            where: {
+                user_id: userId
+            }
+        });
+
+        const answer1Bd = answers[0]?.answer;
+        const answer2Bd = answers[1]?.answer;
+
+        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {
+            res.cookie('user_id', userId, { 
+                maxAge: 300000,
+                httpOnly: true  
+            });
+        
+            return res.status(200).json({ok: true})
+        } else {
+            return res.status(400).json({error: 'Resposta(s) incorreta(s)!'});
+        }
+    } catch(err) {
+        console.log(err)
+    }
 }
