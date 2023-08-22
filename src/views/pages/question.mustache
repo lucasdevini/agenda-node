@@ -56,6 +56,8 @@
                     } else if (responseData.error) {
                         alert(responseData.error);
                     }
+                } else if(response.status === 429) {
+                    alert(responseData.limitError);
                 } else if(response.status === 500) {
                     alert('erro no alert do controller');
                     window.location.href = '/register';
