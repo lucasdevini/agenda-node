@@ -3,10 +3,14 @@ import bcrypt from 'bcrypt';
 import { validationResult } from 'express-validator';
 import sequelize, { Op } from "sequelize";
 
+import { sequelize as Sequelize } from "../instances/sql";
 import { User } from "../models/user";
+import { Question } from "../models/questions";
 
 
 export const signUp = async (req: Request, res: Response) => {
+    const transaction = await Sequelize.transaction();
+
     try {
         const errors = validationResult(req);
 
@@ -20,6 +24,10 @@ export const signUp = async (req: Request, res: Response) => {
         const email: string = req.body.email;
         const phone: string = req.body.phone;
         const password: string = req.body.password;
+        const question1: string = req.body.question1;
+        const answer1: string = req.body.answer1;
+        const question2: string = req.body.question2;
+        const answer2: string = req.body.answer2;
 
         const user = await User.findOne({
             where: {
@@ -31,19 +39,45 @@ export const signUp = async (req: Request, res: Response) => {
         if(!user) {
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            await User.create({
-                name,
-                date,
-                email,
-                phone,
-                password: hashedPassword
-            });
+            const user = await User.create(
+                {
+                    name,
+                    date,
+                    email,
+                    phone,
+                    password: hashedPassword
+                 },
+                 { transaction }
+            );
+
+            await Question.create(
+                {
+                    user_id: user.id,
+                    question: question1,
+                    answer: answer1
+                },
+                { transaction }
+            );
+
+            await Question.create(
+                {
+                    user_id: user.id,
+                    question: question2,
+                    answer: answer2
+                },
+
+                { transaction }
+            );
+
+            await transaction.commit();
 
             return res.status(200).json({ ok:  "Cadastro realizado com sucesso" });
         } else {
             return res.status(400).json({error: 'Usuário já existe na base de dados!'})
         }
     } catch (err) {
+        console.log("DEU ERRO AQUI NO CATCH", err)
+
         res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
     }
 };
