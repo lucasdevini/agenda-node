@@ -7,6 +7,7 @@ import { userSignUpValidation } from "../validations/userSignUp";
 import { scheduleValidation } from "../validations/schedule";
 import { userSignInValidation } from "../validations/userSignIn";
 import { forgotPasswordValidation } from "../validations/forgotPassword";
+import { questionValidation } from "../validations/question";
 import { limiter } from "../middlewares/limitRate";
 import { answerQuestionMiddleare } from '../middlewares/answerQuestionMiddleware'
 
@@ -45,7 +46,7 @@ router.post('/forgot-password', forgotPasswordValidation, authController.forgotP
 
 // Rota "perguntas de segurança"
 router.get('/question', answerQuestionMiddleare, authController.questionPage);
-router.post('/question', answerQuestionMiddleare, authController.question);
+router.post('/question', answerQuestionMiddleare, questionValidation, authController.question);
 
 // Rota de logout
 router.post('/logout', authController.logout);
