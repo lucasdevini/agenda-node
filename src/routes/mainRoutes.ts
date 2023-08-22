@@ -42,11 +42,11 @@ router.get('/search-confirmed', adminPrivateRoute, rolesController.searchConfirm
 
 // Rota "esqueci minha senha"
 router.get('/forgot-password', authController.forgotPasswordPage);
-router.post('/forgot-password', forgotPasswordValidation, authController.forgotPassword);
+router.post('/forgot-password', limiter, forgotPasswordValidation, authController.forgotPassword);
 
 // Rota "perguntas de segurança"
 router.get('/question', answerQuestionMiddleare, authController.questionPage);
-router.post('/question', answerQuestionMiddleare, questionValidation, authController.question);
+router.post('/question', answerQuestionMiddleare, limiter, questionValidation, authController.question);
 
 // Rota de logout
 router.post('/logout', authController.logout);
