@@ -139,7 +139,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 export const questionPage = async (req: Request, res: Response) => {
     const userId = req.cookies.user_id;
-    
+
     const questions = await Question.findAll({
         where: {
             user_id: userId
@@ -162,8 +162,6 @@ export const question = async (req: Request, res: Response) => {
         }
 
         const userId = req.cookies.user_id;
-
-        res.clearCookie('user_id');
         
         const answer1: string = req.body.answer1;
         const answer2: string = req.body.answer2;
@@ -177,12 +175,7 @@ export const question = async (req: Request, res: Response) => {
         const answer1Bd = answers[0]?.answer;
         const answer2Bd = answers[1]?.answer;
 
-        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {
-            res.cookie('user_id', userId, { 
-                maxAge: 300000,
-                httpOnly: true  
-            });
-        
+        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {        
             return res.status(200).json({ok: true})
         } else {
             return res.status(400).json({error: 'Resposta(s) incorreta(s)!'});
