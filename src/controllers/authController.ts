@@ -175,7 +175,14 @@ export const question = async (req: Request, res: Response) => {
         const answer1Bd = answers[0]?.answer;
         const answer2Bd = answers[1]?.answer;
 
-        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {        
+        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {   
+            res.clearCookie('user_id')
+
+            res.cookie('reset_password', userId, { 
+                maxAge: 300000,
+                httpOnly: true  
+            });
+            
             return res.status(200).json({ok: true})
         } else {
             return res.status(400).json({error: 'Resposta(s) incorreta(s)!'});
