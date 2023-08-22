@@ -24,30 +24,30 @@
             <label for="password" class="font-bold">Digite sua senha: </label> <br>
             <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
-            <label for="pergunta1">Primeira pergunta de segurança:</label>
-            <select id="pergunta1" name="pergunta1" onchange="updateSelectOptions(this.value)">
-                <option value="0">-- Selecione uma pergunta --</option>
-                <option value="1">Qual é o nome da sua mãe?</option>
-                <option value="2">Qual é o nome do seu animal de estimação?</option>
+            <label for="question1">Primeira pergunta de segurança:</label>
+            <select id="question1" name="question1" required onchange="updateSelectOptions(this.value)">
+                <option value="" disabled selected>-- Selecione uma pergunta --</option>
+                <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
+                <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
             </select>
 
             <br>
 
-            <label for="resposta1">Responda à primeira pergunta:</label>
-            <input type="text" id="resposta1" name="resposta1">
+            <label for="answer1">Responda à primeira pergunta:</label>
+            <input type="text" id="answer1" name="answer1" required>
             <br><br>
             
-            <label for="pergunta2">Segunda pergunta de segurança:</label>
-            <select id="pergunta2" name="pergunta2" onchange="updateSelectOptions(this.value)">
-                <option value="0">-- Selecione uma pergunta --</option>
-                <option value="1">Qual é o nome da sua mãe?</option>
-                <option value="2">Qual é o nome do seu animal de estimação?</option>
+            <label for="question2">Segunda pergunta de segurança:</label>
+            <select id="question2" name="question2" required onchange="updateSelectOptions(this.value)">
+                <option value="" disabled selected>-- Selecione uma pergunta --</option>
+                <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
+                <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
             </select>
 
             <br>
 
-            <label for="resposta2">Responda à segunda pergunta:</label>
-            <input type="text" id="resposta2" name="resposta2">
+            <label for="answer2">Responda à segunda pergunta:</label>
+            <input type="text" id="answer2" name="answer2" required>
             <br>
 
             <input type="submit" value="Registrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
@@ -92,6 +92,10 @@
             const email = form.querySelector('[name="email"]').value;
             const phone = form.querySelector('[name="phone"]').value;
             const password = form.querySelector('[name="password"]').value;
+            const question1 = form.querySelector('[name="question1"]').value;
+            const answer1 = form.querySelector('[name="answer1"]').value;
+            const question2 = form.querySelector('[name="question2"]').value;
+            const answer2 = form.querySelector('[name="answer2"]').value;
 
             const requestData = {
                 name,
@@ -99,6 +103,10 @@
                 email,
                 phone,
                 password,
+                question1,
+                answer1,
+                question2,
+                answer2
             };
 
             try {
@@ -122,7 +130,7 @@
                         alert(responseData.error);
                     }
                 } else if(response.status === 500) {
-                    alert(responseData.error);
+                    alert('erro no alert do controller');
                     window.location.href = '/register';
                 }
             } catch (error) {
