@@ -9,7 +9,7 @@ import { userSignInValidation } from "../validations/userSignIn";
 import { forgotPasswordValidation } from "../validations/forgotPassword";
 import { questionValidation } from "../validations/question";
 import { limiter } from "../middlewares/limitRate";
-import { answerQuestionMiddleare } from '../middlewares/answerQuestionMiddleware'
+import { answerQuestionMiddleare } from '../middlewares/resetPasswordMiddlewares'
 
 const router = Router();
 
