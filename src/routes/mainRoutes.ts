@@ -8,8 +8,9 @@ import { scheduleValidation } from "../validations/schedule";
 import { userSignInValidation } from "../validations/userSignIn";
 import { forgotPasswordValidation } from "../validations/forgotPassword";
 import { questionValidation } from "../validations/question";
+import { resetPasswordValidation } from "../validations/resetPassword";
 import { limiter } from "../middlewares/limitRate";
-import { answerQuestionMiddleare } from '../middlewares/resetPasswordMiddlewares'
+import { answerQuestionMiddleare, resetPasswordMiddleware } from '../middlewares/resetPasswordMiddlewares'
 
 const router = Router();
 
@@ -47,6 +48,10 @@ router.post('/forgot-password', limiter, forgotPasswordValidation, authControlle
 // Rota "perguntas de segurança"
 router.get('/question', answerQuestionMiddleare, authController.questionPage);
 router.post('/question', answerQuestionMiddleare, limiter, questionValidation, authController.question);
+
+// rota "redefinir senha"
+router.get('/reset-password', resetPasswordMiddleware, authController.resetPasswordPage);
+router.post('/reset-password', resetPasswordMiddleware, limiter, resetPasswordValidation, authController.resetPassword);
 
 // Rota de logout
 router.post('/logout', authController.logout);
