@@ -7,7 +7,6 @@ import { sequelize as Sequelize } from "../instances/sql";
 import { User } from "../models/user";
 import { Question } from "../models/questions";
 
-
 export const signUp = async (req: Request, res: Response) => {
     const transaction = await Sequelize.transaction();
 
@@ -189,5 +188,50 @@ export const question = async (req: Request, res: Response) => {
         }
     } catch(err) {
         console.log(err)
+    }
+}
+
+export const resetPasswordPage = async (req: Request, res: Response) => {
+    res.render('pages/resetPassword');
+}
+
+export const resetPassword = async (req: Request, res: Response) => {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map(error => error.msg);
+            return res.status(400).json({ errors: errorMessages });
+        }
+
+        const userId = req.cookies.reset_password;
+
+        const newPassword: string = req.body.newPassword;
+        const confirmPassword: string = req.body.confirmPassword;
+
+        const user = await User.findByPk(userId);
+
+        if(user) {
+            if(newPassword === confirmPassword) {
+                const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+                await User.update(
+                    { password: hashedPassword },
+                    {
+                      where: {
+                        id: userId
+                      }
+                    }
+                )
+                
+                res.clearCookie('reset_password')
+
+                return res.status(200).json({success: 'Senha alterada com sucesso!'});
+            } else {
+                return res.status(400).json({error: 'As senhas não são iguais.'});
+            }
+        }
+    } catch(err) {
+        console.log(err);
     }
 }
