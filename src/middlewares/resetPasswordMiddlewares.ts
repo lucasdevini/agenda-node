@@ -7,3 +7,11 @@ export const answerQuestionMiddleare = (req: Request, res: Response, next: NextF
         res.redirect('/forgot-password');
     }
 }
+
+export const resetPasswordMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    if(req.cookies.reset_password) {
+        next();
+    } else {
+        res.redirect('/question')
+    }
+}
