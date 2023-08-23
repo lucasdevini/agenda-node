@@ -2,9 +2,12 @@ import { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit'
 
 export const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 3, 
+    windowMs: 60 * 60 * 1000,
+    max: 10, 
     handler: (req: Request, res: Response) => {
-        return res.status(429).json({ limitError: 'Você ultrapassou o número máximo de tentativas de login. Tente novamente em uma hora' });
-    }
+        res.clearCookie('user_id');
+        res.clearCookie('reset_password');
+
+        return res.status(429).json({ limitError: 'Você ultrapassou o número máximo de tentativas. Tente novamente em uma hora' });
+    },
 });
