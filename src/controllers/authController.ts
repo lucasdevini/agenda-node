@@ -49,20 +49,24 @@ export const signUp = async (req: Request, res: Response) => {
                  { transaction }
             );
 
+            const hashedAnswer1 = await bcrypt.hash(answer1, 10);
+
             await Question.create(
                 {
                     user_id: user.id,
                     question: question1,
-                    answer: answer1
+                    answer: hashedAnswer1
                 },
                 { transaction }
             );
+
+            const hashedAnswer2 = await bcrypt.hash(answer2, 10);
 
             await Question.create(
                 {
                     user_id: user.id,
                     question: question2,
-                    answer: answer2
+                    answer: hashedAnswer2
                 },
 
                 { transaction }
@@ -171,10 +175,10 @@ export const question = async (req: Request, res: Response) => {
             }
         });
 
-        const answer1Bd = answers[0]?.answer;
-        const answer2Bd = answers[1]?.answer;
+        const correctAnswer1 = await bcrypt.compare(answer1, answers[0]?.answer);
+        const correctAnswer2 = await bcrypt.compare(answer2, answers[1]?.answer);
 
-        if((answer1 === answer1Bd) && (answer2 === answer2Bd)) {   
+        if((correctAnswer1) && (correctAnswer2)) {   
             res.clearCookie('user_id')
 
             res.cookie('reset_password', userId, { 
@@ -210,23 +214,29 @@ export const resetPassword = async (req: Request, res: Response) => {
         const confirmPassword: string = req.body.confirmPassword;
 
         const user = await User.findByPk(userId);
-
+        
         if(user) {
             if(newPassword === confirmPassword) {
                 const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-                await User.update(
-                    { password: hashedPassword },
-                    {
-                      where: {
-                        id: userId
-                      }
-                    }
-                )
-                
-                res.clearCookie('reset_password')
+                const samePasswords = await bcrypt.compare(newPassword, user.password);
 
-                return res.status(200).json({success: 'Senha alterada com sucesso!'});
+                if(samePasswords) {
+                    return res.status(400).json({error: 'A senha nova é igual a senha atual do usuário!'});
+                } else {
+                    await User.update(
+                        { password: hashedPassword },
+                        {
+                            where: {
+                                id: userId
+                            }
+                        }
+                    )
+                    
+                    res.clearCookie('reset_password')
+
+                    return res.status(200).json({success: 'Senha alterada com sucesso!'});
+                } 
             } else {
                 return res.status(400).json({error: 'As senhas não são iguais.'});
             }
