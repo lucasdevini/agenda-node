@@ -9,12 +9,12 @@
     <form action="" method="POST">
             {{#question1}}
                 <label for="answer1" class="font-bold">{{question1}}</label> <br>
-                <input type="text" name="answer1" id="answer1" required class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+                <input type="text" name="answer1" id="answer1" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
             {{/question1}} 
 
             {{#question2}}
                 <label for="answer2" class="font-bold">{{question2}}</label> <br>
-                <input type="text" name="answer2" id="answer2" required class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+                <input type="text" name="answer2" id="answer2" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
             {{/question2}}  
 
             <button>Enviar</button>

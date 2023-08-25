@@ -10,19 +10,19 @@
     <main class="w-full h-screen flex justify-center items-center">
         <form action="/register" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
             <label for="name" class="font-bold">Digite seu  nome:</label> <br>
-            <input type="text" name="name" id="name" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="text" name="name" id="name" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="date" class="font-bold">Digite sua data de nascimento:</label> <br>
-            <input type="date" name="date" id="date" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="date" name="date" id="date" required class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
-            <input type="email" name="email" id="email" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="email" name="email" id="email" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="phone" class="font-bold">Digite seu número de telefone:</label> <br>
-            <input type="text" name="phone" id="phone" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="tel" name="phone" id="phone" required autocomplete="off" maxlength="15" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="password" class="font-bold">Digite sua senha: </label> <br>
-            <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="password" name="password" id="password" required maxlength="16" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="question1">Primeira pergunta de segurança:</label>
             <select id="question1" name="question1" required onchange="updateSelectOptions(this.value)">
@@ -34,7 +34,7 @@
             <br>
 
             <label for="answer1">Responda à primeira pergunta:</label>
-            <input type="text" id="answer1" name="answer1" required>
+            <input type="text" id="answer1" name="answer1" required autocomplete="off" maxlength="30">
             <br><br>
             
             <label for="question2">Segunda pergunta de segurança:</label>
@@ -47,7 +47,7 @@
             <br>
 
             <label for="answer2">Responda à segunda pergunta:</label>
-            <input type="text" id="answer2" name="answer2" required>
+            <input type="text" id="answer2" name="answer2" required autocomplete="off" maxlength="30">
             <br>
 
             <input type="submit" value="Registrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
@@ -67,6 +67,27 @@
         const maxMonth = (maxAgeDate.getMonth() + 1).toString().padStart(2, '0');
         const maxDay = maxAgeDate.getDate().toString().padStart(2, '0');
         birthDateInput.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
+
+        // inputmask como o campo telefone
+        const phoneInput = document.getElementById('phone');
+  
+        phoneInput.addEventListener('input', (event) => {
+            const input = event.target.value.replace(/\D/g, '');
+            const formattedInput = formatPhoneNumber(input);
+        
+            phoneInput.value = formattedInput;
+        });
+        
+        function formatPhoneNumber(value) {
+            const cleanedValue = value.replace(/\D/g, '');
+            const match = cleanedValue.match(/^(\d{2})(\d{0,5})(\d{0,4})$/);
+            
+            if (match) {
+                return '(' + match[1] + ') ' + match[2] + (match[2] && match[3] ? '-' : '') + match[3];
+            }
+    
+            return value;
+        }
 
         // Impede que uma mesma pergunta seja escolhida duas vezes
         function updateSelectOptions(selectedValue) {

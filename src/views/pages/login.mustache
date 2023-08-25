@@ -14,10 +14,10 @@
             {{/errorLoginMessage}}
 
             <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
-            <input type="email" name="email" id="email" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="email" name="email" id="email" required maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <label for="password" class="font-bold">Digite sua senha: </label> <br>
-            <input type="password" name="password" id="password" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="password" name="password" id="password" required maxlength="16" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
             <input type="submit" value="Entrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
         </form>
