@@ -18,10 +18,10 @@ export const forgotPasswordValidation = [
         .trim()
         .notEmpty()
         .if(body("email").notEmpty())
-        .isEmail().withMessage("Formato de email não reconhecido"),
+          .isEmail().withMessage("Formato de email não reconhecido"),
     body("phone")
         .trim()
         .notEmpty()
         .if(body("phone").notEmpty())
-        .matches(/^\(\d{2}\) \d{4,5}-\d{4}$/).withMessage('O número de telefone deve estar no formato (xx) xxxx-xxxx.')
+          .matches(/^\(\d{2}\) \d{4,5}-\d{4}$/).withMessage('O número de telefone deve estar no formato (xx) xxxxx-xxxx.')
 ]
