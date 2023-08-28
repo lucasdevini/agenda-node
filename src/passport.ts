@@ -10,7 +10,7 @@ export function initialize(passport:any) {
     async function findUser(email:string) {
         return await User.findOne({
             where: {
-                email
+                email: email.toLocaleLowerCase()
             }
         })
     }

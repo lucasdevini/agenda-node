@@ -24,13 +24,13 @@ export const signUp = async (req: Request, res: Response) => {
 
         const name: string = req.body.name;
         const date: string = req.body.date;
-        const email: string = req.body.email;
+        const email: string = req.body.email.toLowerCase();
         const phone: string = req.body.phone;
         const password: string = req.body.password;
         const question1: string = req.body.question1;
-        const answer1: string = req.body.answer1;
+        const answer1: string = req.body.answer1.toLowerCase();
         const question2: string = req.body.question2;
-        const answer2: string = req.body.answer2;
+        const answer2: string = req.body.answer2.toLowerCase();
 
         const user = await User.findOne({
             where: {
@@ -120,7 +120,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     }
 
     const date = req.body.date;
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     const phone = req.body.phone;
 
     const user = await User.findOne({
@@ -170,8 +170,8 @@ export const question = async (req: Request, res: Response) => {
 
         const userId = req.cookies.user_id;
         
-        const answer1: string = req.body.answer1;
-        const answer2: string = req.body.answer2;
+        const answer1: string = req.body.answer1.toLowerCase();
+        const answer2: string = req.body.answer2.toLowerCase();
 
         const answers = await Question.findAll({
             where: {
