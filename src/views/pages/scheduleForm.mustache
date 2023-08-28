@@ -21,12 +21,22 @@
     </main>
 
     <script>
-        // Obtém a referência ao elemento do input de data
         const inputData = document.getElementById('data');
 
         // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
         const dataAtual = new Date().toISOString().split('T')[0];
         inputData.min = dataAtual;
+
+        // Impede que usuário seleciona sábados e domingos
+        inputData.addEventListener('change', () => {
+            const selectedDate = new Date(inputData.value);
+            const dayOfWeek = selectedDate.getDay(); 
+
+            if (dayOfWeek === 5 || dayOfWeek === 6) {
+                alert('Sábados e domingos não são permitidos.');
+                inputData.value = ''; // Limpa o valor selecionado
+            }
+        });
     </script>
 </body>
 </html>
