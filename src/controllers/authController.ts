@@ -14,7 +14,11 @@ export const signUp = async (req: Request, res: Response) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            const errorMessages = errors.array().map(error => error.msg);
+            const errorMessages = errors.array().map(error => ({
+                msg: error.msg,
+                path: error.type === 'field' ? error.path : null
+        }));
+
             return res.status(400).json({ errors: errorMessages });
         }
 
