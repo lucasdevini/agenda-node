@@ -27,14 +27,29 @@ export const scheduleForm = async (req: Request, res: Response) => {
             const date: string = req.body.date;
             const hour: string = req.body.hour;
 
-            await Schedule.create({
-                email,
-                user_id,
-                date,
-                hour
+            const formattedDate = new Date(date).toISOString().substring(0, 10);
+
+            const schedule = await Schedule.findOne({
+                where: {
+                    date: sequelize.literal(`DATE('${formattedDate}')`),
+                    hour
+                }
             })
 
-            res.status(200).json({ message: 'Agendamento realizado com sucesso' });
+            if(schedule) {
+                console.log("Já existe um agendamento para esta mesma data nessa mesma hora!");
+                // res.status(400).json({error: "Já existe um agendamento para esta mesma data nessa mesma hora!"});
+            } else {
+                await Schedule.create({
+                    email,
+                    user_id,
+                    date,
+                    hour
+                })
+
+                console.log("MENSAGEM: Agendamento realizado com sucesso!");
+                // res.status(200).json({success: "Agendamento realizado com sucesso!"});
+            }
         }
     } catch (err) {
         res.redirect('/schedule-form');
