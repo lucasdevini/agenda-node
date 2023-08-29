@@ -18,7 +18,6 @@ export const scheduleForm = async (req: Request, res: Response) => {
 
         if (!errors.isEmpty()) {
             res.status(400).json({ errors: errorMessages });
-            return res.render('/schedule-form', { errors: errorMessages });
         }
 
         if ((req.user as UserInstance).email && (req.user as UserInstance).id) {
@@ -37,8 +36,7 @@ export const scheduleForm = async (req: Request, res: Response) => {
             })
 
             if(schedule) {
-                console.log("Já existe um agendamento para esta mesma data nessa mesma hora!");
-                // res.status(400).json({error: "Já existe um agendamento para esta mesma data nessa mesma hora!"});
+                res.status(400).json({error: "Já existe um agendamento para esta mesma data nessa mesma hora!"});
             } else {
                 await Schedule.create({
                     email,
@@ -47,12 +45,11 @@ export const scheduleForm = async (req: Request, res: Response) => {
                     hour
                 })
 
-                console.log("MENSAGEM: Agendamento realizado com sucesso!");
-                // res.status(200).json({success: "Agendamento realizado com sucesso!"});
+                res.status(200).json({success: "Agendamento realizado com sucesso!"});
             }
         }
     } catch (err) {
-        res.redirect('/schedule-form');
+        res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
     }
 }
 
@@ -159,7 +156,7 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
                 await schedule.save();
             }
 
-            res.status(200).json({ message: 'Agendamento confirmado com sucesso' });
+            res.status(200).json({ accepted: 'Agendamento confirmado com sucesso' });
         } else {
             await Schedule.destroy({
                 where: {
@@ -167,10 +164,8 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
                 }
             });
 
-            res.status(200).json({ message: 'Agendamento recusado com sucesso' });
+            res.status(200).json({ refused: 'Agendamento recusado com sucesso' });
         }
-
-        res.status(200).json({ message: 'Agendamento aceito/recusado com sucesso' });
     } catch (err) {
         res.status(500).json({
             error: 'Ocorreu um erro ao processar a ação. Por favor, tente novamente mais tarde.'
