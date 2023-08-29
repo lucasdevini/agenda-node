@@ -57,16 +57,14 @@
                 <div class="flex justify-center gap-16">
                     <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
                         <input type="hidden" name="id" value="{{id}}">
-                        <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="accept">
-                        <input type='submit' value='Aceitar' class="cursor-pointer">
+                        <input type='submit' value='Aceitar' class="cursor-pointer" onclick="sendData(event, this.form)">
                     </form> 
 
                     <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
                         <input type="hidden" name="id" value="{{id}}">
-                        <input type="hidden" name="email" value="{{email}}">
                         <input type="hidden" name="status" value="refuse">
-                        <input type='submit' value='Recusar' class="cursor-pointer">
+                        <input type='submit' value='Recusar' class="cursor-pointer" onclick="sendData(event, this.form)">
                     </form>
                 </div>
             </li>
@@ -91,6 +89,44 @@
             // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
             const dataAtual = new Date().toISOString().split('T')[0];
             inputData.min = dataAtual;
+
+            async function sendData(event, form) {
+                event.preventDefault();
+
+                const id = form.querySelector('[name="id"]').value;
+                const status = form.querySelector('[name="status"]').value;
+
+                const requestData = {
+                    id,
+                    status
+                }; 
+
+                try {
+                    const response = await fetch('/pending-schedules', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+
+                    const responseData = await response.json();
+
+                    if (response.status === 200) {
+                        if(responseData.accepted) {
+                            console.log('entrou no accepted')
+                            alert(responseData.accepted);
+                        } else if(responseData.refused) {
+                            console.log('entrou no refused')
+                            alert(responseData.refused);
+                        }
+                    } else {
+                        alert(responseData.error);
+                    } 
+                } catch {
+                    alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
+                }
+            }
         </script>
     </main>
 </body>
