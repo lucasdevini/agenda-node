@@ -113,13 +113,7 @@
                     const responseData = await response.json();
 
                     if (response.status === 200) {
-                        if(responseData.accepted) {
-                            console.log('entrou no accepted')
-                            alert(responseData.accepted);
-                        } else if(responseData.refused) {
-                            console.log('entrou no refused')
-                            alert(responseData.refused);
-                        }
+                        window.location.reload()
                     } else {
                         alert(responseData.error);
                     } 
