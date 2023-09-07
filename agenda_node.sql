@@ -1,28 +1,40 @@
--- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
---
--- Host: localhost    Database: agenda_net
--- ------------------------------------------------------
--- Server version	5.5.5-10.4.27-MariaDB
+-- --------------------------------------------------------
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           10.4.28-MariaDB - mariadb.org binary distribution
+-- OS do Servidor:               Win64
+-- HeidiSQL Versão:              12.5.0.6677
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `schedule`
---
 
-DROP TABLE IF EXISTS `schedule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `schedule` (
+-- Copiando estrutura do banco de dados para agenda_node
+CREATE DATABASE IF NOT EXISTS `agenda_node` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `agenda_node`;
+
+-- Copiando estrutura para tabela agenda_node.questions
+CREATE TABLE IF NOT EXISTS `questions` (
+  `user_id` int(11) NOT NULL,
+  `question` varchar(100) NOT NULL,
+  `answer` varchar(100) NOT NULL,
+  PRIMARY KEY (`user_id`,`question`),
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Copiando dados para a tabela agenda_node.questions: ~2 rows (aproximadamente)
+INSERT INTO `questions` (`user_id`, `question`, `answer`) VALUES
+	(63, 'nome_da_mae', '$2b$10$IuuXvemaUF2y.a2xBd6iHOnnKQ9bSGNihBFkk5llb1pypLzvw2WU6'),
+	(63, 'nome_do_animal', '$2b$10$yYrbzyn1JXxhhLvpQp9OhOjPyW1B7F0FJSD0TfwhRJHRMx4357rnK');
+
+-- Copiando estrutura para tabela agenda_node.schedule
+CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
@@ -30,55 +42,29 @@ CREATE TABLE `schedule` (
   `user_id` int(11) NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT 'pending',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
---
--- Dumping data for table `schedule`
---
+-- Copiando dados para a tabela agenda_node.schedule: ~0 rows (aproximadamente)
 
-LOCK TABLES `schedule` WRITE;
-/*!40000 ALTER TABLE `schedule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `schedule` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
+-- Copiando estrutura para tabela agenda_node.user
+CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `date` date NOT NULL,
   `email` varchar(100) NOT NULL,
+  `phone` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `user`
---
+-- Copiando dados para a tabela agenda_node.user: ~2 rows (aproximadamente)
+INSERT INTO `user` (`id`, `name`, `date`, `email`, `phone`, `password`, `role`) VALUES
+	(53, 'Admin', '2005-08-17', 'admin@email.com', '(00) 00000-0000', '$2b$10$GjKAcHqJRBTRJBTlFqDrmOhzE0R70/CkXn0xtTzacH7lKTACrO81i', 'admin'),
+	(63, 'user', '2005-08-23', 'user@email.com', '(11) 11111-1111', '$2b$10$FJY.vWsZtk7rJ.zvIIvDXew4TQjEzhsZX2211GcfjZ2kQYZtnTTaO', 'user');
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (5,'admin@email.com','$2b$10$20BjE/D2HQoohZHHvJTZKe5VVXgQtCyUwlDlqkgNL2.pcvWu1BGdq','admin'),(6,'user@email.com','$2b$10$2N6EiZQ4t84j/LWoRPlky.Vw2/H0Fc9Ax96zlePHSKgLJEktfjMEK','user');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'agenda_net'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-08-03  9:26:34
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
