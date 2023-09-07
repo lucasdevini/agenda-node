@@ -8,145 +8,210 @@
 </head>
 <body class="container mx-auto bg-[#374A90]">
     <main class="w-full h-screen flex justify-center items-center">
-        <form action="/register" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
-            <label for="name" class="font-bold">Digite seu  nome:</label> <br>
-            <input type="text" name="name" id="name" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
-            <div id="nameError" class="text-red-500"></div>
+        <form action="/register" method="post" class="w-2/3 h-5/6 flex flex-col items-center p-4 m-10 overflow-y-scroll border-4 border-l-0 border-t-0 bg-[#E47B38] border-orange-700 rounded text-white lg:h-max lg:overflow-y-hidden">
+            <div class="flex flex-col justify-between gap-5 mb-4 lg:flex-row">            
+                <div id="dados-pessoais" class="w-full flex flex-col lg:w-1/2">
+                    <fieldset class="border p-4 rounded-lg">
+                        <legend class="text-lg font-semibold text-white">Dados pessoais</legend>
+                        
+                        <label for="name" class="font-bold text-lg md:text-3xl lg:text-lg">Nome:</label>
+                        <input type="text" name="name" id="name" required autocomplete="off" placeholder="ex: Marcos Oliveira da Silva" maxlength="50" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="nameError" class="text-red-700"></div>
+                        <div><br></div>
+                        <label for="date" class="font-bold text-lg md:text-3xl lg:text-lg">Data de nascimento:</label>
+                        <input type="date" name="date" id="date" required class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2">
+                        <div id="dateError" class="text-red-700"></div>
+                        <br>
+                        <label for="email" class="font-bold text-lg md:text-3xl lg:text-lg">E-mail:</label>
+                        <input type="email" name="email" id="email" required autocomplete="off" placeholder="ex: marcos@email.com" maxlength="50" class="w-full pl-1 mr-2 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="emailError" class="text-red-700"></div>
+                        <br>
+                        <label for="phone" class="font-bold text-lg md:text-3xl lg:text-lg">Número de telefone:</label>
+                        <input type="tel" name="phone" id="phone" required autocomplete="off" placeholder="ex: (11) 98765-4321" maxlength="15" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="phoneError" class="text-red-700"></div>
+                        <br>
+                        <label for="password" class="font-bold text-lg md:text-3xl lg:text-lg">Senha: </label>
+                        <input type="password" name="password" id="password" required placeholder="ex: minhaSenha*123" maxlength="16" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="passwordError" class="text-red-700"></div>
+                    </fieldset>
+                </div>
+                
+                <div id="perguntas-seguranca" class="w-full flex flex-col lg:w-1/2">
+                    <fieldset class="border p-4 rounded-lg">
+                        <legend class="text-lg font-semibold text-white">
+                            Perguntas de segurança
+                        </legend>
 
-            <br>
-
-            <label for="date" class="font-bold">Digite sua data de nascimento:</label> <br>
-            <input type="date" name="date" id="date" required class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
-            <div id="dateError" class="text-red-500"></div>
-
-            <br>
-
-            <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
-            <input type="email" name="email" id="email" required autocomplete="off" maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
-            <div id="emailError" class="text-red-500"></div>
-
-            <br>
-
-            <label for="phone" class="font-bold">Digite seu número de telefone:</label> <br>
-            <input type="tel" name="phone" id="phone" required autocomplete="off" maxlength="15" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> 
-            <div id="phoneError" class="text-red-500"></div>
-
-            <br>
-
-            <label for="password" class="font-bold">Digite sua senha: </label> <br>
-            <input type="password" name="password" id="password" required maxlength="16" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
-            <div id="passwordError" class="text-red-500"></div>
-
-            <br>
-
-            <label for="question1">Primeira pergunta de segurança:</label>
-            <select id="question1" name="question1" required onchange="updateSelectOptions(this.value)">
-                <option value="" disabled selected>-- Selecione uma pergunta --</option>
-                <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
-                <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
-            </select>
-
-            <br>
-
-            <label for="answer1">Responda à primeira pergunta:</label>
-            <input type="text" id="answer1" name="answer1" required autocomplete="off" maxlength="30">
-            <div id="answer1Error" class="text-red-500"></div>
-
-            <br>
+                        <label for="question1" class="font-bold text-lg md:text-3xl lg:text-lg">Primeira pergunta de segurança:</label>
+                        <select id="question1" name="question1" required onchange="updateSelectOptions(this.value)" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
+                            <option value="" disabled selected>-- Selecione uma pergunta --</option>
+                            <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
+                            <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
+                        </select>
+                        <br>
+                        <label for="answer1" class="font-bold text-lg md:text-3xl lg:text-lg">Responda a primeira pergunta:</label>
+                        <input type="text" id="answer1" name="answer1" required autocomplete="off" maxlength="30" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="answer1Error" class="text-red-500"></div>
+                        <br>
+                        
+                        <label for="question2" class="font-bold text-lg md:text-3xl lg:text-lg">Segunda pergunta de segurança:</label>
+                        <select id="question2" name="question2" required onchange="updateSelectOptions(this.value)" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
+                            <option value="" disabled selected>-- Selecione uma pergunta --</option>
+                            <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
+                            <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
+                        </select>
+                        <br>
+                        <label for="answer2" class="font-bold text-lg md:text-3xl lg:text-lg">Responda a segunda pergunta:</label>
+                        <input type="text" id="answer2" name="answer2" required autocomplete="off" maxlength="30" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black focus:border-b-2">
+                        <div id="answer2Error" class="text-red-500"></div>
+                    </fieldset>
+                </div>
+            </div>
             
-            <label for="question2">Segunda pergunta de segurança:</label>
-            <select id="question2" name="question2" required onchange="updateSelectOptions(this.value)">
-                <option value="" disabled selected>-- Selecione uma pergunta --</option>
-                <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
-                <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
-            </select>
-
-            <br>
-
-            <label for="answer2">Responda à segunda pergunta:</label>
-            <input type="text" id="answer2" name="answer2" required autocomplete="off" maxlength="30">
-            <div id="answer2Error" class="text-red-500"></div>
-
-            <br>
-            
-            <input type="submit" value="Registrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
+            <input type="submit" value="Registrar" class="w-max border-2 py-1 px-10 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105 md:text-xl xl:text-lg">
         </form>
     </main>
 
     <script>
-        // Limita a usuários com 18 anos ou mais
         const form = document.querySelector('form');
-  
-        const birthDateInput = document.getElementById("date");
 
+        // campos do form
+        const name = form.querySelector('[name="name"]');
+        const date = form.querySelector('[name="date"]');
+        const email = form.querySelector('[name="email"]');
+        const phone = form.querySelector('[name="phone"]');
+        const password = form.querySelector('[name="password"]');
+        const question1 = form.querySelector('[name="question1"]');
+        const answer1 = form.querySelector('[name="answer1"]');
+        const question2 = form.querySelector('[name="question2"]');
+        const answer2 = form.querySelector('[name="answer2"]');
+        //
+
+        // Armazena os campos de input
+        const dadosPessoaisDiv = document.getElementById('dados-pessoais');
+        const dadosPessoaisInputs = dadosPessoaisDiv.querySelectorAll('input');
+
+        const perguntasSegurancaDiv = document.getElementById('perguntas-seguranca');
+        const perguntasSegurancaInputs = perguntasSegurancaDiv.querySelectorAll('input');
+
+        // Função para limitar a entrada do input name a letras
+        function validarNome(input) {
+            input.value = input.value.replace(/[^a-zA-ZÀ-ÿ\s]/g, '');
+        }
+
+        // Função para limitar a entrada dos inputs answers a letras, números, hífen e espaços
+        function validarResposta(input) {
+            input.value = input.value.replace(/[^a-zA-Z0-9\s-]/g, '');
+        }
+
+        // Limita a usuários com 18 anos ou mais
         const today = new Date();
         const maxAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
         const maxYear = maxAgeDate.getFullYear();
         const maxMonth = (maxAgeDate.getMonth() + 1).toString().padStart(2, '0');
         const maxDay = maxAgeDate.getDate().toString().padStart(2, '0');
-        birthDateInput.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
+        date.setAttribute("max", `${maxYear}-${maxMonth}-${maxDay}`);
 
-        // inputmask como o campo telefone
-        const phoneInput = document.getElementById('phone');
-  
-        phoneInput.addEventListener('input', (event) => {
-            const input = event.target.value.replace(/\D/g, '');
-            const formattedInput = formatPhoneNumber(input);
-        
-            phoneInput.value = formattedInput;
-        });
-        
-        function formatPhoneNumber(value) {
-            const cleanedValue = value.replace(/\D/g, '');
-            const match = cleanedValue.match(/^(\d{2})(\d{0,5})(\d{0,4})$/);
-            
-            if (match) {
-                return '(' + match[1] + ') ' + match[2] + (match[2] && match[3] ? '-' : '') + match[3];
+        // Função para atualizar o estilo do input
+        function updateInputStyle(input, isValid) {
+            if (isValid) {
+                input.classList.remove('border-red-700');
+                input.classList.add('border-green-700');
+            } else {
+                input.classList.remove('border-green-700');
+                input.classList.add('border-red-700');
             }
-    
-            return value;
         }
+
+        // verifica se os dados inseridos nos inputs de dados pessoais são válidos:
+        for(let i = 0; i < dadosPessoaisInputs.length; i++) {
+            dadosPessoaisInputs[i].addEventListener('input', () => {
+                const nameInput = dadosPessoaisInputs[i].value;
+
+                if (dadosPessoaisInputs[i].name === 'name') {
+                    validarNome(dadosPessoaisInputs[i]);
+                } else if(dadosPessoaisInputs[i].name === 'email') {
+                    if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(nameInput)) {
+                        updateInputStyle(dadosPessoaisInputs[i], false);
+                    } else {
+                        updateInputStyle(dadosPessoaisInputs[i], true);
+                    }
+                } else if(dadosPessoaisInputs[i].name === 'phone') {
+                    // inputmask como o campo telefone
+                    const phoneInput = document.getElementById('phone');
+            
+                    function formatPhoneNumber(value) {
+                        const cleanedValue = value.replace(/\D/g, '');
+                        const match = cleanedValue.match(/^(\d{2})(\d{0,5})(\d{0,4})$/);
+                        
+                        if (match) {
+                            return '(' + match[1] + ') ' + match[2] + (match[2] && match[3] ? '-' : '') + match[3];
+                        }
+                
+                        return value;
+                    }
+
+                    phoneInput.addEventListener('input', (event) => {
+                        const input = event.target.value.replace(/\D/g, '');
+                        const formattedInput = formatPhoneNumber(input);
+                    
+                        phoneInput.value = formattedInput;
+                    });
+                    //
+
+                    if(!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(nameInput)) {
+                        updateInputStyle(dadosPessoaisInputs[i], false);
+                    } else {
+                        updateInputStyle(dadosPessoaisInputs[i], true);
+                    }
+                } else if (dadosPessoaisInputs[i].name === 'password') {
+                    if(nameInput.length < 8 || !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(nameInput)) {
+                        updateInputStyle(dadosPessoaisInputs[i], false);
+                    } else {
+                        updateInputStyle(dadosPessoaisInputs[i], true);
+                    }
+                }
+            });  
+        }    
+
+        // verifica se os dados inseridos nos inputs de perguntas de segurança são válidos:
+        for(let i = 0; i < perguntasSegurancaInputs.length; i++) {
+            perguntasSegurancaInputs[i].addEventListener('input', () => {
+                validarResposta(perguntasSegurancaInputs[i]);
+            });  
+        } 
 
         // Impede que uma mesma pergunta seja escolhida duas vezes
         function updateSelectOptions(selectedValue) {
             const selects = document.querySelectorAll('select');
-            
-            for (let i = 0; i < selects.length; i++) {
-                const select = selects[i];
-                if (select.value !== selectedValue) {
-                    const option = select.querySelector(`option[value="${selectedValue}"]`);
-                    if (option) {
+
+            selects.forEach(function(select) {
+                select.querySelectorAll('option').forEach(function(option) {
+                    if (option.value !== selectedValue) {
+                        option.disabled = false;
+                    } else {
                         option.disabled = true;
                     }
-                }
-            }
+                });
+            });
         }
 
         // Envia os dados para o backend
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            const name = form.querySelector('[name="name"]').value;
-            const date = form.querySelector('[name="date"]').value;
-            const email = form.querySelector('[name="email"]').value;
-            const phone = form.querySelector('[name="phone"]').value;
-            const password = form.querySelector('[name="password"]').value;
-            const question1 = form.querySelector('[name="question1"]').value;
-            const answer1 = form.querySelector('[name="answer1"]').value;
-            const question2 = form.querySelector('[name="question2"]').value;
-            const answer2 = form.querySelector('[name="answer2"]').value;
-
+            // Dados enviados na requisição
             const requestData = {
-                name,
-                date,
-                email,
-                phone,
-                password,
-                question1,
-                answer1,
-                question2,
-                answer2
+                name: name.value,
+                date: date.value,
+                email: email.value,
+                phone: phone.value,
+                password: password.value,
+                question1: question1.value,
+                answer1: answer1.value,
+                question2: question2.value,
+                answer2: answer2.value
             };
 
             try {
@@ -160,6 +225,7 @@
 
                 const responseData = await response.json();
 
+                // Tratamento das respostas do servidor  
                 if (response.status === 200) {
                     alert('Cadastro realizado com sucesso!');
                     window.location.href = '/login';
@@ -169,20 +235,48 @@
                             const { msg, path } = error;
                             const errorElement = document.getElementById(`${path}Error`);
                             
+                            // Erros da parte de dados pessoais
+                            const pathsPessoais = [
+                                'name', 
+                                'date', 
+                                'email', 
+                                'phone', 
+                                'password'
+                            ]
+
+                            // Retorna o usuário a parte de dados pessoais caso haja algum erro
+                            let erroValidacao = false;
+
+                            for (let i = 0; i < pathsPessoais.length; i++) {
+                                if (path === pathsPessoais[i]) {
+                                    erroValidacao = true;
+                                    break;
+                                }
+                            }
+
+                            // Insere o erro abaixo do respectivo input
                             if (errorElement) {
                                 const errorInput = document.querySelector(`#${path}`);
 
                                 const clearErrorStyles = () => {
-                                errorInput.style.borderColor = '';
-                                errorElement.textContent = '';
-                            };
+                                    errorInput.style.borderColor = '';
+                                    errorElement.textContent = '';
+                                };
 
-                            if (errorInput) {
-                                errorInput.style.borderColor = 'red';
-                                errorInput.addEventListener('input', clearErrorStyles);
-                            }
+                                if (errorInput) {
+                                    errorInput.style.borderColor = 'red';
+                                    errorInput.addEventListener('input', clearErrorStyles);
+                                }
 
                                 errorElement.textContent = msg;
+                            }
+
+                            if (erroValidacao) {
+                                dadosPessoaisDiv.classList.remove('hidden');
+                                perguntasSegurancaDiv.classList.add('hidden');
+                                perguntasSegurancaDiv.classList.remove('flex');
+                                perguntasSegurancaDiv.classList.remove('flex-col');
+                                botao.classList.remove('rotate-180');
                             }
                         });
                     } else if (responseData.error) {
@@ -196,6 +290,7 @@
                 alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
             }
         });
+        //
     </script>
 </body>
 </html>

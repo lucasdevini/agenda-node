@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/output.css">
+    <link rel="stylesheet" href="css/output.css">
 </head>
 <body class="container mx-auto bg-[#374A90]">
     <main class="w-full h-screen flex justify-center items-center">
-        <form action="/login" method="post" class="bg-[#E47B38] p-8 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white">
-            {{#errorLoginMessage}}
-                {{.}} <br/>
-            {{/errorLoginMessage}}
+        <form action="/login" method="post" class="bg-[#E47B38] p-8 m-2 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white md:w-1/2 xl:w-1/4">
+            <label for="email" class="font-bold text-lg md:text-3xl xl:text-lg">Digite seu e-mail:</label> <br>
+            <input type="email" name="email" id="email" required maxlength="50" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
-            <label for="email" class="font-bold">Digite seu e-mail:</label> <br>
-            <input type="email" name="email" id="email" required maxlength="50" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <label for="password" class="font-bold text-lg md:text-3xl xl:text-lg">Digite sua senha: </label> <br>
+            <input type="password" name="password" id="password" required maxlength="16" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
 
-            <label for="password" class="font-bold">Digite sua senha: </label> <br>
-            <input type="password" name="password" id="password" required maxlength="16" class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
+            <input type="submit" value="Entrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105 md:text-xl xl:text-lg">
 
-            <input type="submit" value="Entrar" class="w-full border-2 p-1 rounded cursor-pointer transition ease-in font-bold bg-[#E47B38] hover:border-[#374A90] hover:bg-[#374A90] hover:scale-105">
+            <br><br>
+
+            <div class="md:text-xl xl:text-lg">Esqueceu a senha ? Clica <a href="/forgot-password" class="underline hover:text-[#374A90]">aqui</a></div>
         </form>
     </main>
 
