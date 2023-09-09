@@ -42,13 +42,8 @@ Agenda Node é uma aplicação full stack web de cunho autoral que permite a rea
   - link do HeidiSQL: https://www.heidisql.com/download.php
   - link do Node: https://nodejs.org/en/download
   - link do VSCode: https://code.visualstudio.com/Download
-
-- Dentro da pasta htdocs, crie uma pasta para receber os arquivos do projeto. Uma sugestão de nome é agenda_node. 
-  - caminho padrão para a pasta htdocs: C:\xampp\htdocs
- 
-  ![Crianda a pasta agenda_node](public/readme_content/images/create_folder.png)
   
-- Além de realizar os passos acima, abra o prompt de comando e digite o seguinte comando para instalar as dependências globais necessárias para rodar o projeto: 
+- Abra o prompt de comando e digite o seguinte comando para instalar as dependências globais necessárias para rodar o projeto: 
 
 ```bash
 npm install -g nodemon typescript ts-node
@@ -60,8 +55,8 @@ npm install -g nodemon typescript ts-node
 - Abra o Git Bash e digite os seguintes comandos nessa ordem: 
 
 ```bash
-# Acesse a pasta criada para receber os arquivos do projeto no xampp
-$ cd C:/xampp/htdocs/agenda_node
+# Acesse a pasta htdocs
+$ cd C:/xampp/htdocs
 ```
 
 ```bash
@@ -69,17 +64,14 @@ $ cd C:/xampp/htdocs/agenda_node
 $ git clone https://github.com/lucasdevini/agenda-node.git
 ```
 
-![Digitando comandos no Git Bash](public/readme_content/gifs/gif_gitbash_commands.gif) 
-
 - Abra o XAMPP e dê um start no MySQL
 
 ![Dando start no MySQL](public/readme_content/images/xampp.png) 
 
 - Abra o HeidiSQL:
   - clique em Nova
-  - Apenas copie as configuraçães do gif abaixo
-  - Clique em abrir 
-
+  - Apenas copie as configuraçães do gif abaixo e clique em abrir
+  
 ![Criando conexão no HeidiSQL](public/readme_content/gifs/gif_create_connection.gif)
 
 - Ainda dentro do HeidiSQL:
@@ -108,7 +100,16 @@ $ git clone https://github.com/lucasdevini/agenda-node.git
 - Abra seu navegador de preferência e digite a seguinte url: localhost/register
 
 ![Abrindo a aplicação no navegador](public/readme_content/gifs/gif_open_browser.gif)
- 
+
+# Credenciais para user e admin padrões do banco de dados do projeto
+  - User: 
+    - email: user@email.com
+    - senha: User1234*
+
+  - Admin:
+    - email: admin@email.com
+    - senha: Admin1234*
+
 # Autor
 
 Lucas Vinícius Vieira da Silva
