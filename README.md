@@ -6,9 +6,9 @@
 Agenda Node é uma aplicação full stack web de cunho autoral que permite a realização, acompanhamento e gerenciamento de agendamentos.
 
 ## Layout web
-![Tela do form de agendamentos](public/css/readme_content/images/schedule_form.png)
+![Tela do form de agendamentos](public/readme_content/images/schedule_form.png)
 
-![Tela dos agendamentos pendentes](public/css/readme_content/images/peding_schedules.png)
+![Tela dos agendamentos pendentes](public/readme_content/images/peding_schedules.png)
 
 ## Funcionalidades
 ### Usuários:
@@ -46,7 +46,7 @@ Agenda Node é uma aplicação full stack web de cunho autoral que permite a rea
 - Dentro da pasta htdocs, crie uma pasta para receber os arquivos do projeto. Uma sugestão de nome é agenda_node. 
   - caminho padrão para a pasta htdocs: C:\xampp\htdocs
  
-  ![Crianda a pasta agenda_node](public/css/readme_content/images/create_folder.png)
+  ![Crianda a pasta agenda_node](public/readme_content/images/create_folder.png)
   
 - Além de realizar os passos acima, abra o prompt de comando e digite o seguinte comando para instalar as dependências globais necessárias para rodar o projeto: 
 
@@ -54,7 +54,7 @@ Agenda Node é uma aplicação full stack web de cunho autoral que permite a rea
 npm install -g nodemon typescript ts-node
 ```
 
-![Instalando dependências globais](public/css/readme_content/images/install_global_dependencies.png)
+![Instalando dependências globais](public/readme_content/images/install_global_dependencies.png)
 
 ## Rodando o projeto
 - Abra o Git Bash e digite os seguintes comandos nessa ordem: 
@@ -69,18 +69,18 @@ $ cd C:/xampp/htdocs/agenda_node
 $ git clone https://github.com/lucasdevini/agenda-node.git
 ```
 
-![Digitando comandos no Git Bash](public/css/readme_content/gifs/gif_gitbash_commands.gif) 
+![Digitando comandos no Git Bash](public/readme_content/gifs/gif_gitbash_commands.gif) 
 
 - Abra o XAMPP e dê um start no MySQL
 
-![Dando start no MySQL](public/css/readme_content/images/xampp.png) 
+![Dando start no MySQL](public/readme_content/images/xampp.png) 
 
 - Abra o HeidiSQL:
   - clique em Nova
   - Apenas copie as configuraçães do gif abaixo
   - Clique em abrir 
 
-![Criando conexão no HeidiSQL](public/css/readme_content/gifs/gif_create_connection.gif)
+![Criando conexão no HeidiSQL](public/readme_content/gifs/gif_create_connection.gif)
 
 - Ainda dentro do HeidiSQL:
   - Clique com o botão direito sobre a conexão criada
@@ -90,7 +90,7 @@ $ git clone https://github.com/lucasdevini/agenda-node.git
   - Procure pelo arquivo agenda_node.sql que está dentro da pasta do projeto
   - Após selecionar o arquivo .sql
  
-![Criando banco de dados no HeidiSQL](public/css/readme_content/gifs/gif_create_database.gif)
+![Criando banco de dados no HeidiSQL](public/readme_content/gifs/gif_create_database.gif)
 
 - Agora abra a pasta do projeto com o VSCode, ou qualquer outro editor de código:
     - abra o prompt integrado (CTRL + ", no VSCode)
@@ -103,11 +103,11 @@ $ git clone https://github.com/lucasdevini/agenda-node.git
     ```bash
     npm run start-dev
     ```
-![Abrindo o VSCode](public/css/readme_content/gifs/gif_open_vscode.gif)
+![Abrindo o VSCode](public/readme_content/gifs/gif_open_vscode.gif)
     
 - Abra seu navegador de preferência e digite a seguinte url: localhost/register
 
-![Abrindo a aplicação no navegador](public/css/readme_content/gifs/gif_open_browser.gif)
+![Abrindo a aplicação no navegador](public/readme_content/gifs/gif_open_browser.gif)
  
 # Autor
 
