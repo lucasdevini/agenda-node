@@ -24,7 +24,7 @@ export const Schedule = sequelize.define<ScheduleInstance>('Schedule', {
         unique: true
     },
     date: {
-        type: DataTypes.DATE
+        type: DataTypes.DATEONLY
     },
     hour: {
         type: DataTypes.TIME
