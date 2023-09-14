@@ -1,7 +1,8 @@
 {{>partials/admin/adminHeader}}
-    <main>
-        <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Marcados para hoje - {{formattedDate}}</h2>
-        <ul>
+    <main class="mt-14 p-5">
+        <h2 class="my-4 text-bold text-[#E47B38] text-3xl  border-b-2 border-[#E47B38]">Marcados para hoje - {{formattedDate}}</h2>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            <!-- Agendamentos confirmados para a data atual -->
             {{#todayList}}
                 <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
                     <div class="border-b-2 border-white">
@@ -22,8 +23,9 @@
             {{/todayList}}
         </ul>
 
-        <h2 class="my-4  text-bold text-[#E47B38] text-3xl">Próximos dias</h2>
-        <ul>
+        <h2 class="my-4  text-bold text-[#E47B38] text-3xl  border-b-2 border-[#E47B38]">Próximos dias</h2>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            <!-- Agendamentos confirmados no geral -->
             {{#list}}
             <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
                 <div class="border-b-2 border-white">
@@ -47,19 +49,15 @@
         <hr/>
         <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Pesquise por uma data:</h2>
         
+        <!-- Campo para pesquisar os agendamentos confirmados de uma data específica -->
         <form action="/search-confirmed" method="get">
-            <input type="date" name="search" id='search-date' class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
+            <input type="date" name="search" id='date' class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
             <input type="submit" value="pesquisar" class="p-1 ml-2 rounded cursor-pointer transition ease-in text-white bg-[#374A90]">
         </form>
-        
-        <script>
-            // Obtém a referência ao elemento do input de data
-            const inputData = document.getElementById('search-date');
-
-            // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
-            const dataAtual = new Date().toISOString().split('T')[0];
-            inputData.min = dataAtual;
-        </script>
     </main>
+
+    <!-- Scripts js com códigos compartilhados -->    
+    <script src="/js/formattedDate.js"></script>
+    <script src="/js/menu.js"></script>
 </body>
 </html>

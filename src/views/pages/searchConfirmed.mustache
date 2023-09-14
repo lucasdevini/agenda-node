@@ -1,24 +1,26 @@
 {{>partials/admin/adminHeader}}
-    <h1 class="my-4 text-bold text-[#E47B38] text-3xl">{{searchedDate}}</h1>
-    <ul>
-        {{#list}}
-            <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
-                <div class="border-b-2 border-white">
-                    <span class="font-bold">E-mail:</span> {{email}}
-                </div>
+    <main class="p-5">
+        <h1 class="my-4 text-bold text-[#E47B38] text-3xl border-b-2 border-[#E47B38]">{{searchedDate}}</h1>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            {{#list}}
+                <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
+                    <div class="border-b-2 border-white">
+                        <span class="font-bold">E-mail:</span> {{email}}
+                    </div>
 
-                <div class="my-4 border-b-2 border-white">
-                    <span class="font-bold">Data:</span> {{date}}
-                </div>  
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Data:</span> {{date}}
+                    </div>  
 
-                <div class="my-4 border-b-2 border-white">
-                    <span class="font-bold">Hora:</span> {{hour}}
-                </div> 
-            </li>
-        {{/list}}
-        {{^list}}
-            <p>Nenhum agendamento foi encontrado!</p>
-        {{/list}}
-    </ul>
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Hora:</span> {{hour}}
+                    </div> 
+                </li>
+            {{/list}}
+            {{^list}}
+                <p>Nenhum agendamento foi encontrado!</p>
+            {{/list}}
+        </ul>
+    </main>
 </body>
 </html>

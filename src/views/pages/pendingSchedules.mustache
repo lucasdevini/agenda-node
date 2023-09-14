@@ -1,7 +1,8 @@
 {{>partials/admin/adminHeader}}
-    <main>
-        <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Agendamentos feitos hoje - {{formattedDate}}</h2>
-        <ul>
+    <main class="mt-14 p-5">
+        <h2 class="my-4 text-bold text-[#E47B38] text-3xl  border-b-2 border-[#E47B38]">Solicitados para hoje - {{formattedDate}}</h2>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            <!-- Agendamentos solicitados na data de hoje -->
             {{#todayList}}
                 <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
                     <div class="border-b-2 border-white">
@@ -21,14 +22,14 @@
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="hidden" name="email" value="{{email}}">
                             <input type="hidden" name="status" value="accept">
-                            <input type='submit' value='Aceitar' class="cursor-pointer">
+                            <input type='submit' value='Aceitar' class="cursor-pointer" onclick="sendData(event, form)">
                         </form> 
     
                         <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="hidden" name="email" value="{{email}}">
                             <input type="hidden" name="status" value="refuse">
-                            <input type='submit' value='Recusar' class="cursor-pointer">
+                            <input type='submit' value='Recusar' class="cursor-pointer" onclick="sendData(event, form)">
                         </form>
                     </div>
                 </li>
@@ -38,8 +39,9 @@
             {{/todayList}}
         </ul>
     
-        <h2 class="my-4  text-bold text-[#E47B38] text-3xl">Próximos dias</h2>
-        <ul>
+        <h2 class="my-4  text-bold text-[#E47B38] text-3xl  border-b-2 border-[#E47B38]">Próximos dias</h2>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            <!-- Agendamentos solicitados para os próximos dias -->
             {{#list}}
             <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
                 <div class="border-b-2 border-white">
@@ -77,51 +79,18 @@
         <hr/>
         <h2 class="my-4 text-bold text-[#E47B38] text-3xl">Pesquise por uma data:</h2>
         
+        <!-- Campo para pesquisar os agendamentos pendentes de uma data específica -->
         <form action="/search-pending" method="get">
-            <input type="date" name="search" id='search-date' class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
+            <input type="date" name="search" id='date' class="pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]">
             <input type="submit" value="pesquisar" class="p-1 ml-2 rounded cursor-pointer transition ease-in text-white bg-[#374A90]">
         </form>
-        
-        <script>
-            // Obtém a referência ao elemento do input de data
-            const inputData = document.getElementById('search-date');
-    
-            // Obtém a data atual no formato "YYYY-MM-DD" e atribui ao atributo min do input de data
-            const dataAtual = new Date().toISOString().split('T')[0];
-            inputData.min = dataAtual;
-
-            async function sendData(event, form) {
-                event.preventDefault();
-
-                const id = form.querySelector('[name="id"]').value;
-                const status = form.querySelector('[name="status"]').value;
-
-                const requestData = {
-                    id,
-                    status
-                }; 
-
-                try {
-                    const response = await fetch('/pending-schedules', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(requestData)
-                    });
-
-                    const responseData = await response.json();
-
-                    if (response.status === 200) {
-                        window.location.reload()
-                    } else {
-                        alert(responseData.error);
-                    } 
-                } catch {
-                    alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
-                }
-            }
-        </script>
     </main>
+
+    <!-- Códigos js específicos desta página -->
+    <script src="/js/pendingSchedules.js"></script>
+    
+    <!-- códigos js compartilhados -->  
+    <script src="/js/formattedDate.js"></script>
+    <script src="/js/menu.js"></script>
 </body>
 </html>

@@ -1,40 +1,42 @@
 {{>partials/admin/adminHeader}}
-    <h1 class="my-4 text-bold text-[#E47B38] text-3xl">{{searchedDate}}</h1>
-    <ul>
-        {{#list}}
-            <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
-                <div class="border-b-2 border-white">
-                    <span class="font-bold">E-mail:</span> {{email}}
-                </div>
+    <main class="p-5">
+        <h1 class="my-4 text-bold text-[#E47B38] text-3xl border-b-2 border-[#E47B38]">{{searchedDate}}</h1>
+        <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
+            {{#list}}
+                <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
+                    <div class="border-b-2 border-white">
+                        <span class="font-bold">E-mail:</span> {{email}}
+                    </div>
 
-                <div class="my-4 border-b-2 border-white">
-                    <span class="font-bold">Data:</span> {{date}}
-                </div>  
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Data:</span> {{date}}
+                    </div>  
 
-                <div class="my-4 border-b-2 border-white">
-                    <span class="font-bold">Hora:</span> {{hour}}
-                </div> 
+                    <div class="my-4 border-b-2 border-white">
+                        <span class="font-bold">Hora:</span> {{hour}}
+                    </div> 
 
-                <div class="flex justify-center gap-16">
-                        <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
-                            <input type="hidden" name="id" value="{{id}}">
-                            <input type="hidden" name="email" value="{{email}}">
-                            <input type="hidden" name="status" value="accept">
-                            <input type='submit' value='Aceitar' class="cursor-pointer">
-                        </form> 
-    
-                        <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
-                            <input type="hidden" name="id" value="{{id}}">
-                            <input type="hidden" name="email" value="{{email}}">
-                            <input type="hidden" name="status" value="refuse">
-                            <input type='submit' value='Recusar' class="cursor-pointer">
-                        </form>
-                </div>
-            </li>
-        {{/list}}
-        {{^list}}
-            <p>Nenhum agendamento foi encontrado!</p>
-        {{/list}}
-    </ul>
+                    <div class="flex justify-center gap-16">
+                            <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
+                                <input type="hidden" name="id" value="{{id}}">
+                                <input type="hidden" name="email" value="{{email}}">
+                                <input type="hidden" name="status" value="accept">
+                                <input type='submit' value='Aceitar' class="cursor-pointer">
+                            </form> 
+        
+                            <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
+                                <input type="hidden" name="id" value="{{id}}">
+                                <input type="hidden" name="email" value="{{email}}">
+                                <input type="hidden" name="status" value="refuse">
+                                <input type='submit' value='Recusar' class="cursor-pointer">
+                            </form>
+                    </div>
+                </li>
+            {{/list}}
+            {{^list}}
+                <p>Nenhum agendamento foi encontrado!</p>
+            {{/list}}
+        </ul>
+    </main>
 </body>
 </html>

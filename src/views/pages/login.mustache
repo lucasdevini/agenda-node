@@ -23,51 +23,7 @@
         </form>
     </main>
 
-    <script>
-        const form = document.querySelector('form');
-
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const email = form.querySelector('[name="email"]').value;
-            const password = form.querySelector('[name="password"]').value;
-
-            const requestData = {
-                email: email,
-                password: password
-            };
-
-            try {
-                const response = await fetch('/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestData)
-                });
-
-                const responseData = await response.json();
-
-                if (response.status === 400) {
-                    if (responseData.errors) {
-                        alert(responseData.errors.join('\n'));
-                    } else if (responseData.error) {
-                        alert(responseData.error);
-                    }
-                } else if(response.status === 429) {
-                    alert(responseData.limitError);
-                } else if(response.status === 200) {
-                    if(responseData.admin) {
-                        window.location.href = '/admin';
-                    } else if(responseData.user) {
-                        window.location.href = '/user';
-                    }
-                }
-            } catch (error) {
-                console.log(error)
-                alert('Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.');
-            }
-        });
-    </script>
+    <!-- códigos js específicos desta página -->
+    <script src="/js/signIn.js"></script>
 </body>
 </html>
