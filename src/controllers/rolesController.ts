@@ -5,12 +5,6 @@ import { User, UserInstance } from "../models/user";
 import { validationResult } from "express-validator";
 
 // Controller do usuário
-export const userPage = (req: Request, res: Response) => {
-    const userEmail = (req.user as UserInstance).email
-
-    res.render('pages/user', { userEmail });
-}
-
 export const scheduleForm = async (req: Request, res: Response) => {
     try {
         const errors = validationResult(req);
@@ -26,11 +20,9 @@ export const scheduleForm = async (req: Request, res: Response) => {
             const date: string = req.body.date;
             const hour: string = req.body.hour;
 
-            const formattedDate = new Date(date).toISOString().substring(0, 10);
-
             const schedule = await Schedule.findOne({
                 where: {
-                    date: sequelize.literal(`DATE('${formattedDate}')`),
+                    date,
                     hour
                 }
             })
@@ -53,8 +45,17 @@ export const scheduleForm = async (req: Request, res: Response) => {
     }
 }
 
-export const scheduleFormPage = (req: Request, res: Response) => {
-    res.render('pages/scheduleForm');
+export const scheduleFormPage = async (req: Request, res: Response) => {
+    const user = await User.findOne({
+        where: {
+            id: (req.user as UserInstance).id,
+            email: (req.user as UserInstance).email
+        }
+    })
+    
+    const name = user?.name;
+
+    res.render('pages/scheduleForm', { name });
 }
 
 export const mySchedules = async (req: Request, res: Response) => {
@@ -75,14 +76,12 @@ export const mySchedules = async (req: Request, res: Response) => {
         }
     })
 
-    res.render('pages/mySchedules', { schedules })
+    const name = user?.name;
+
+    res.render('pages/mySchedules', { schedules, name })
 }
 
 // Controllers do admin
-export const adminPage = (req: Request, res: Response) => {
-    res.render('pages/admin');
-}
-
 export const pendingSchedules = async (req: Request, res: Response) => {
     // Pega a data atual
     const today = new Date();
@@ -92,7 +91,7 @@ export const pendingSchedules = async (req: Request, res: Response) => {
     const todayList = await Schedule.findAll({
         where: {
             date: {
-                [Op.eq]: sequelize.literal(`DATE('${formattedDate}')`),
+                [Op.eq]: today
             }, 
             status: 'pending'
         }
@@ -102,7 +101,7 @@ export const pendingSchedules = async (req: Request, res: Response) => {
     const list = await Schedule.findAll({
         where: {
             date: {
-                [Op.gt]: sequelize.literal(`DATE('${formattedDate}')`)
+                [Op.gt]: today
             },
             status: 'pending'
         }
@@ -120,7 +119,7 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
     const todayList = await Schedule.findAll({
         where: {
             date: {
-                [Op.eq]: sequelize.literal(`DATE('${formattedDate}')`),
+                [Op.eq]: today
             },
             status: 'accept'
         }
@@ -130,7 +129,7 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
     const list = await Schedule.findAll({
         where: {
             date: {
-                [Op.gt]: sequelize.literal(`DATE('${formattedDate}')`)
+                [Op.gt]: today
             },
             status: 'accept'
         }
