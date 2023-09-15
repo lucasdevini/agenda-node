@@ -99,7 +99,6 @@ $ git clone https://github.com/lucasdevini/agenda-node.git
     ```bash
     npm run start
     ```
-![Abrindo o VSCode](public/readme_content/gifs/gif_open_vscode.gif)
     
 - Abra seu navegador de preferência e digite a seguinte url: localhost/register
 
