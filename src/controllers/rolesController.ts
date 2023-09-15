@@ -55,7 +55,7 @@ export const scheduleFormPage = async (req: Request, res: Response) => {
     
     const name = user?.name;
 
-    res.render('pages/scheduleForm', { name });
+    res.render('pages/scheduleForm', { name, tittle: 'Realizar agendamento' });
 }
 
 export const mySchedules = async (req: Request, res: Response) => {
@@ -78,7 +78,7 @@ export const mySchedules = async (req: Request, res: Response) => {
 
     const name = user?.name;
 
-    res.render('pages/mySchedules', { schedules, name })
+    res.render('pages/mySchedules', { schedules, name, tittle: 'Meus agendamentos'  })
 }
 
 // Controllers do admin
@@ -107,7 +107,7 @@ export const pendingSchedules = async (req: Request, res: Response) => {
         }
     });
 
-    res.render('pages/pendingSchedules', {list, todayList, formattedDate});
+    res.render('pages/pendingSchedules', {list, todayList, formattedDate, tittle: 'Agendamentos pendentes' });
 }
 
 export const confirmedSchedules = async (req: Request, res: Response) => {
@@ -135,7 +135,7 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
         }
     });
 
-    res.render('pages/confirmedschedules', {list, todayList, formattedDate});
+    res.render('pages/confirmedschedules', {list, todayList, formattedDate, tittle: 'Agendamentos confirmados'});
 }
 
 export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
@@ -189,7 +189,7 @@ export const searchPending = async (req: Request, res: Response) => {
        return;  
    }
 
-   res.render('pages/searchPending', {searchedDate, list});
+   res.render('pages/searchPending', {searchedDate, list, tittle: 'Agendamentos pendentes'});
 }
 
 export const searchConfirmed = async (req: Request, res: Response) => {
@@ -209,5 +209,5 @@ export const searchConfirmed = async (req: Request, res: Response) => {
         return;  
     }
  
-    res.render('pages/searchConfirmed', {searchedDate, list});
+    res.render('pages/searchConfirmed', {searchedDate, list, tittle: 'Agendamentos confirmados'});
 }
