@@ -23,16 +23,12 @@ router.get('/login', authController.signInPage);
 router.post('/login', limiter, userSignInValidation, authenticate());
 
 // Rotas de usuário
-router.get('/user', privateRoute, rolesController.userPage);
-
 router.get('/schedule-form', privateRoute, rolesController.scheduleFormPage);
 router.post('/schedule-form', privateRoute, scheduleValidation, rolesController.scheduleForm); 
 
 router.get('/my-schedules', privateRoute, rolesController.mySchedules)
 
 // Rotas de admin
-router.get('/admin', adminPrivateRoute, rolesController.adminPage);
-
 router.get('/pending-schedules', adminPrivateRoute, rolesController.pendingSchedules);
 router.post('/pending-schedules', adminPrivateRoute, rolesController.acceptOrRefuseSchedule);
 
