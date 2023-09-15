@@ -1,5 +1,5 @@
 {{>partials/user/userHeader}}   
-        <main class="mt-28">
+        <main class="flex-grow mt-28">
             <h2 class="text-3xl font-bold text-center text-[#282828]">Seus agendamentos:</h2>
                 <ul class="w-full flex flex-wrap justify-center gap-4">
                     <!-- Agendamentos gerais do usuário -->
@@ -17,6 +17,8 @@
                     {{/schedules}}
                 </ul>
         </main>
+
+        {{>partials/footer/footer}}
 
         <!-- Códigos js compartilhados -->
         <script src="/js/menu.js"></script>

@@ -1,5 +1,5 @@
 {{>partials/admin/adminHeader}}
-    <main class="p-5">
+    <main class="flex-grow p-5">
         <h1 class="my-4 text-bold text-[#E47B38] text-3xl border-b-2 border-[#E47B38]">{{searchedDate}}</h1>
         <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
             {{#list}}
@@ -38,5 +38,7 @@
             {{/list}}
         </ul>
     </main>
+
+    {{>partials/footer/footer}}
 </body>
 </html>

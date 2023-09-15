@@ -1,5 +1,5 @@
 {{>partials/admin/adminHeader}}
-    <main class="mt-14 p-5">
+    <main class="flex-grow mt-14 p-5">
         <h2 class="my-4 text-bold text-[#E47B38] text-3xl  border-b-2 border-[#E47B38]">Solicitados para hoje - {{formattedDate}}</h2>
         <ul class="w-full flex flex-wrap justify-center gap-4 lg:justify-start">
             <!-- Agendamentos solicitados na data de hoje -->
@@ -85,6 +85,8 @@
             <input type="submit" value="pesquisar" class="p-1 ml-2 rounded cursor-pointer transition ease-in text-white bg-[#374A90]">
         </form>
     </main>
+
+    {{>partials/footer/footer}}
 
     <!-- Códigos js específicos desta página -->
     <script src="/js/pendingSchedules.js"></script>

@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
     <link rel="stylesheet" href="css/output.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 </head>
-<body class="container mx-auto bg-[#374A90]">
-    <main class="w-full h-screen flex justify-center items-center">
+<body class="mx-auto h-screen flex flex-col itens-center bg-[#374A90]">
+    <main class="flex-grow w-full flex justify-center items-center">
         <form action="/login" method="post" class="bg-[#E47B38] p-8 m-2 border-4 border-l-0 border-t-0 border-orange-700 rounded text-white md:w-1/2 xl:w-1/4">
             <label for="email" class="font-bold text-lg md:text-3xl xl:text-lg">Digite seu e-mail:</label> <br>
             <input type="email" name="email" id="email" required maxlength="50" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white focus:border-b-2 focus:border-[#374A90]"> <br><br>
@@ -20,8 +21,11 @@
             <br><br>
 
             <div class="md:text-xl xl:text-lg">Esqueceu a senha ? Clica <a href="/forgot-password" class="underline hover:text-[#374A90]">aqui</a></div>
+            <div class="md:text-xl xl:text-lg">Cadastre-se <a href="/register" class="underline hover:text-[#374A90]">aqui</a></div>
         </form>
     </main>
+
+    {{>partials/footer/footer}}
 
     <!-- códigos js específicos desta página -->
     <script src="/js/signIn.js"></script>
