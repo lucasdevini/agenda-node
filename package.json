@@ -8,7 +8,7 @@
     "start-dev": "nodemon -e ts,json,mustache src/server.ts",
     "start-tailwind": "npx tailwindcss -i ./src/input.css -o ./public/css/output.css --watch",
     "start-test": "concurrently \"npm run start-dev\" \"npm run start-tailwind\"",
-    "build": "tsc && copyfiles src/**/*.mustache dist/ && copyfiles public/**/*.css dist/"
+    "build": "tsc && copyfiles src/**/*.mustache dist/ && copyfiles public/**/*.css dist/ && copyfiles public/**/*.ico dist/"
   },
   "keywords": [],
   "author": "",
