@@ -91,9 +91,13 @@ $ git clone https://github.com/lucasdevini/agenda-node.git
     ```bash
     npm install
     ```
-
+    
     ```bash
-    npm run start-dev
+    npm run build
+    ```
+    
+    ```bash
+    npm run start
     ```
 ![Abrindo o VSCode](public/readme_content/gifs/gif_open_vscode.gif)
     
