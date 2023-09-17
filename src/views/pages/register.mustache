@@ -8,8 +8,8 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 </head>
 <body class="mx-auto h-screen flex flex-col bg-[#374A90]">
-    <main class="flex flex-grow justify-center">
-        <form action="/register" method="post" class="w-2/3 h-5/6 flex flex-col items-center p-4 m-10 overflow-y-scroll border-4 border-l-0 border-t-0 bg-[#E47B38] border-orange-700 rounded text-white lg:h-max lg:overflow-y-hidden">
+    <main class="flex flex-grow justify-center items-center">
+        <form action="/register" method="post" class="w-4/5 h-max flex flex-col items-center p-4 m-5 overflow-y-scroll border-4 border-l-0 border-t-0 bg-[#E47B38] border-orange-700 rounded text-white sm:w-2/3 lg:overflow-y-hidden">
             <div class="flex flex-col justify-between gap-5 mb-4 lg:flex-row">            
                 <div id="dados-pessoais" class="w-full flex flex-col lg:w-1/2">
                     <fieldset class="border p-4 rounded-lg">
@@ -44,10 +44,11 @@
                         </legend>
 
                         <label for="question1" class="font-bold text-lg md:text-3xl lg:text-lg">Primeira pergunta de segurança:</label>
-                        <select id="question1" name="question1" required onchange="updateSelectOptions(this.value)" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
+                        <select id="question1" name="question1" required class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
                             <option value="" disabled selected>-- Selecione uma pergunta --</option>
                             <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
                             <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
+                            <option value="nome_melhor_amigo_infancia">Qual é o nome do seu amigo de infância ?</option>
                         </select>
                         <br>
                         <label for="answer1" class="font-bold text-lg md:text-3xl lg:text-lg">Responda a primeira pergunta:</label>
@@ -56,10 +57,11 @@
                         <br>
                         
                         <label for="question2" class="font-bold text-lg md:text-3xl lg:text-lg">Segunda pergunta de segurança:</label>
-                        <select id="question2" name="question2" required onchange="updateSelectOptions(this.value)" class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
+                        <select id="question2" name="question2" required class="w-full pl-1 rounded bg-slate-100 outline-none border-b-2 text-black border-white">
                             <option value="" disabled selected>-- Selecione uma pergunta --</option>
                             <option value="nome_da_mae">Qual é o nome da sua mãe?</option>
                             <option value="nome_do_animal">Qual é o nome do seu animal de estimação?</option>
+                            <option value="nome_melhor_amigo_infancia">Qual é o nome do seu melhor amigo de infância ?</option>
                         </select>
                         <br>
                         <label for="answer2" class="font-bold text-lg md:text-3xl lg:text-lg">Responda a segunda pergunta:</label>

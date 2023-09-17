@@ -91,27 +91,33 @@ for(let i = 0; i < dadosPessoaisInputs.length; i++) {
     });  
 }    
 
-// verifica se os dados inseridos nos inputs de perguntas de segurança são válidos:
+const selects = document.querySelectorAll('select');
+
+for (let i = 0; i < selects.length; i++) {
+    selects[i].addEventListener('change', () => {
+        const selectedOption = selects[i].value;
+
+        for (let j = 0; j < selects.length; j++) {
+            if (i !== j) {
+                const options = selects[j].querySelectorAll('option');
+                options.forEach(option => {
+                    if (option.value === selectedOption) {
+                        option.disabled = true;
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            }
+        }
+    });
+}
+
+// verifica se os dados inseridos nos inputs de resposta de segurança são válidos:
 for(let i = 0; i < perguntasSegurancaInputs.length; i++) {
     perguntasSegurancaInputs[i].addEventListener('input', () => {
         validarResposta(perguntasSegurancaInputs[i]);
     });  
 } 
-
-// Impede que uma mesma pergunta seja escolhida duas vezes
-function updateSelectOptions(selectedValue: string) {
-    const selects = document.querySelectorAll('select');
-
-    selects.forEach(function(select) {
-        select.querySelectorAll('option').forEach(function(option) {
-            if (option.value !== selectedValue) {
-                option.disabled = false;
-            } else {
-                option.disabled = true;
-            }
-        });
-    });
-}
 
 // Envia os dados para o backend
 form.addEventListener('submit', async (event) => {
