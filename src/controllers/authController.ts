@@ -34,8 +34,10 @@ export const signUp = async (req: Request, res: Response) => {
 
         const user = await User.findOne({
             where: {
-                email,
-                phone
+                [Op.or]: {
+                    email,
+                    phone
+                }
             }
         })
 
@@ -83,8 +85,6 @@ export const signUp = async (req: Request, res: Response) => {
             return res.status(400).json({error: 'Usuário já existe na base de dados!'})
         }
     } catch (err) {
-        console.log("DEU ERRO AQUI NO CATCH", err)
-
         res.status(500).json({ error: 'Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.' });
     }
 };
