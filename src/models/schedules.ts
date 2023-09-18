@@ -3,6 +3,8 @@ import { sequelize } from '../instances/sql';
 
 export interface ScheduleInstance extends Model {
     id: number,
+    name: string,
+    phone: string,
     email: string,
     user_id: number,
     date: Date,
@@ -15,6 +17,12 @@ export const Schedule = sequelize.define<ScheduleInstance>('Schedule', {
         primaryKey: true,
         autoIncrement: true,
         type: DataTypes.INTEGER
+    },
+    name: {
+        type: DataTypes.STRING
+    },
+    phone: {
+        type: DataTypes.STRING
     },
     email: {
         type: DataTypes.STRING
