@@ -5,15 +5,23 @@
             <!-- Agendamentos solicitados na data de hoje -->
             {{#todayList}}
                 <li class="w-80 my-3 p-4 border-l-4 border-[#E47B38] rounded text-white bg-[#374A90]">
-                    <div class="border-b-2 border-white">
+                    <div class="mb-4 border-b-2 border-white">
+                        <span class="font-bold">Nome:</span> {{name}}
+                    </div>
+
+                    <div class="mb-4 border-b-2 border-white">
+                        <span class="font-bold">Telefone:</span> {{phone}}
+                    </div>
+
+                    <div class="mb-4 border-b-2 border-white">
                         <span class="font-bold">E-mail:</span> {{email}}
                     </div>
 
-                    <div class="my-4 border-b-2 border-white">
+                    <div class="mb-4 border-b-2 border-white">
                         <span class="font-bold">Data:</span> {{date}}
                     </div>  
 
-                    <div class="my-4 border-b-2 border-white">
+                    <div class="mb-4 border-b-2 border-white">
                         <span class="font-bold">Hora:</span> {{hour}}
                     </div> 
 
@@ -21,14 +29,14 @@
                         <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="hidden" name="email" value="{{email}}">
-                            <input type="hidden" name="status" value="accept">
+                            <input type="hidden" name="status" value="confirmado">
                             <input type='submit' value='Aceitar' class="cursor-pointer" onclick="sendData(event, form)">
                         </form> 
     
                         <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="hidden" name="email" value="{{email}}">
-                            <input type="hidden" name="status" value="refuse">
+                            <input type="hidden" name="status" value="recusado">
                             <input type='submit' value='Recusar' class="cursor-pointer" onclick="sendData(event, form)">
                         </form>
                     </div>
@@ -59,13 +67,13 @@
                 <div class="flex justify-center gap-16">
                     <form id="accept-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-green-500">
                         <input type="hidden" name="id" value="{{id}}">
-                        <input type="hidden" name="status" value="accept">
+                        <input type="hidden" name="status" value="confirmado">
                         <input type='submit' value='Aceitar' class="cursor-pointer" onclick="sendData(event, this.form)">
                     </form> 
 
                     <form id="refuse-form" action="/pending-schedules" method="post" class="p-2 rounded font-bold bg-red-500">
                         <input type="hidden" name="id" value="{{id}}">
-                        <input type="hidden" name="status" value="refuse">
+                        <input type="hidden" name="status" value="recusado">
                         <input type='submit' value='Recusar' class="cursor-pointer" onclick="sendData(event, this.form)">
                     </form>
                 </div>
