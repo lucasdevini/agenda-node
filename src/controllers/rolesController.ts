@@ -15,6 +15,8 @@ export const scheduleForm = async (req: Request, res: Response) => {
         }
 
         if ((req.user as UserInstance).email && (req.user as UserInstance).id) {
+            const name: string = (req.user as UserInstance).name;
+            const phone: string = (req.user as UserInstance).phone;
             const email: string = (req.user as UserInstance).email;
             const user_id: number = (req.user as UserInstance).id;
             const date: string = req.body.date;
@@ -31,6 +33,8 @@ export const scheduleForm = async (req: Request, res: Response) => {
                 res.status(400).json({error: "Já existe um agendamento para esta mesma data nessa mesma hora!"});
             } else {
                 await Schedule.create({
+                    name,
+                    phone,
                     email,
                     user_id,
                     date,
@@ -93,7 +97,7 @@ export const pendingSchedules = async (req: Request, res: Response) => {
             date: {
                 [Op.eq]: today
             }, 
-            status: 'pending'
+            status: 'pendente'
         }
     });
 
@@ -103,7 +107,7 @@ export const pendingSchedules = async (req: Request, res: Response) => {
             date: {
                 [Op.gt]: today
             },
-            status: 'pending'
+            status: 'pendente'
         }
     });
 
@@ -121,7 +125,7 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
             date: {
                 [Op.eq]: today
             },
-            status: 'accept'
+            status: 'confirmado'
         }
     });
 
@@ -131,7 +135,7 @@ export const confirmedSchedules = async (req: Request, res: Response) => {
             date: {
                 [Op.gt]: today
             },
-            status: 'accept'
+            status: 'confirmado'
         }
     });
 
@@ -143,7 +147,7 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
         const id: number = req.body.id;
         const status: string = req.body.status;
 
-        if (status === 'accept') {
+        if (status === 'confirmado') {
             const schedule = await Schedule.findOne({
                 where: {
                     id
