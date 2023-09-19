@@ -28,21 +28,20 @@ CREATE TABLE IF NOT EXISTS `questions` (
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Copiando dados para a tabela agenda_node.questions: ~2 rows (aproximadamente)
-INSERT INTO `questions` (`user_id`, `question`, `answer`) VALUES
-	(63, 'nome_da_mae', '$2b$10$IuuXvemaUF2y.a2xBd6iHOnnKQ9bSGNihBFkk5llb1pypLzvw2WU6'),
-	(63, 'nome_do_animal', '$2b$10$yYrbzyn1JXxhhLvpQp9OhOjPyW1B7F0FJSD0TfwhRJHRMx4357rnK');
+-- Copiando dados para a tabela agenda_node.questions: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela agenda_node.schedule
 CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date` date NOT NULL,
-  `hour` time DEFAULT NULL,
+  `hour` time NOT NULL,
   `user_id` int(11) NOT NULL,
-  `status` varchar(100) NOT NULL DEFAULT 'pending',
+  `status` varchar(100) NOT NULL DEFAULT 'pendente',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_danish_ci;
 
 -- Copiando dados para a tabela agenda_node.schedule: ~0 rows (aproximadamente)
 
@@ -56,12 +55,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(100) NOT NULL,
   `role` varchar(100) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Copiando dados para a tabela agenda_node.user: ~2 rows (aproximadamente)
 INSERT INTO `user` (`id`, `name`, `date`, `email`, `phone`, `password`, `role`) VALUES
-	(53, 'Admin', '2005-08-17', 'admin@email.com', '(00) 00000-0000', '$2b$10$GjKAcHqJRBTRJBTlFqDrmOhzE0R70/CkXn0xtTzacH7lKTACrO81i', 'admin'),
-	(63, 'user', '2005-08-23', 'user@email.com', '(11) 11111-1111', '$2b$10$FJY.vWsZtk7rJ.zvIIvDXew4TQjEzhsZX2211GcfjZ2kQYZtnTTaO', 'user');
+	(1, 'Admin', '2005-08-17', 'admin@email.com', '(00) 00000-0000', '$2b$10$GjKAcHqJRBTRJBTlFqDrmOhzE0R70/CkXn0xtTzacH7lKTACrO81i', 'admin'),
+	(2, 'user', '2005-08-23', 'user@email.com', '(11) 11111-1111', '$2b$10$FJY.vWsZtk7rJ.zvIIvDXew4TQjEzhsZX2211GcfjZ2kQYZtnTTaO', 'user');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
