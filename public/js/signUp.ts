@@ -62,7 +62,7 @@ for(let i = 0; i < dadosPessoaisInputs.length; i++) {
                 const match = cleanedValue.match(/^(\d{2})(\d{0,5})(\d{0,4})$/);
                 
                 if (match) {
-                    return '(' + match[1] + ') ' + match[2] + (match[2] && match[3] ? '-' : '') + match[3];
+                    return (match[1] ? '(': '') + match[1] + (match[2]  ? ') ' : '') + match[2] + (match[2] && match[3] ? '-' : '') + match[3];
                 }
         
                 return value;
