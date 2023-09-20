@@ -48,9 +48,9 @@ for(let i = 0; i < dadosPessoaisInputs.length; i++) {
         if (dadosPessoaisInputs[i].name === 'name') {
             validarNome(dadosPessoaisInputs[i]);
         } else if(dadosPessoaisInputs[i].name === 'email') {
-            if(!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(nameInput)) {
-                updateInputStyle(dadosPessoaisInputs[i], false);
-            } else {
+            updateInputStyle(dadosPessoaisInputs[i], false);
+
+            if(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(nameInput)) {
                 updateInputStyle(dadosPessoaisInputs[i], true);
             }
         } else if(dadosPessoaisInputs[i].name === 'phone') {
@@ -76,17 +76,17 @@ for(let i = 0; i < dadosPessoaisInputs.length; i++) {
             });
             //
 
-            if(!/^\(\d{2}\) \d{4,5}-\d{4}$/.test(nameInput)) {
-                updateInputStyle(dadosPessoaisInputs[i], false);
-            } else {
+            updateInputStyle(dadosPessoaisInputs[i], false);
+
+            if(/^\(\d{2}\) \d{4,5}-\d{4}$/.test(nameInput)) {
                 updateInputStyle(dadosPessoaisInputs[i], true);
             }
         } else if (dadosPessoaisInputs[i].name === 'password') {
-            if(nameInput.length < 8 || !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/.test(nameInput)) {
-                updateInputStyle(dadosPessoaisInputs[i], false);
-            } else {
+            updateInputStyle(dadosPessoaisInputs[i], false);
+            
+            if(nameInput.length >= 8 && /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#^()_+\-=\[\]{}|\\:;'"<>,.?\/])[0-9a-zA-Z$*&@#^()_+\-=\[\]{}|\\:;'"<>,.?\/]{8,}$/.test(nameInput)) {
                 updateInputStyle(dadosPessoaisInputs[i], true);
-            }
+            } 
         }
     });  
 }    
