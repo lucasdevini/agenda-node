@@ -1,3 +1,4 @@
+// Envia os dados do form para o backend
 async function sendData(event:Event, form:HTMLFormElement) {
     event.preventDefault();
 

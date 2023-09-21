@@ -93,6 +93,7 @@ for(let i = 0; i < dadosPessoaisInputs.length; i++) {
 
 const selects = document.querySelectorAll('select');
 
+// impede que uma mesma pergunta de segurança seja escolhida 2x
 for (let i = 0; i < selects.length; i++) {
     selects[i].addEventListener('change', () => {
         const selectedOption = selects[i].value;

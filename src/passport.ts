@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import { Strategy as LocalStrategy }  from 'passport-local';
 import bcrypt from 'bcrypt';
-import passport from "passport";
+import passport, { PassportStatic } from "passport";
 import { validationResult } from 'express-validator';
 
 import { User, UserInstance } from './models/user';
 
-export function initialize(passport:any) {
+export function initialize(passport:PassportStatic) {
+    // Encontra o usuário baseado no email
     async function findUser(email:string) {
         return await User.findOne({
             where: {
@@ -15,24 +16,27 @@ export function initialize(passport:any) {
         })
     }
 
+    // Encontra o usuário baseado no id
     async function findUserById(id:number) {
         return await User.findByPk(id);
     }
 
-    passport.serializeUser((user:any, done:any) => {
+    // salva o id do usuário na sessão
+    passport.serializeUser((user: any, done: (err: any, id?: number) => void) => {
         done(null, user.id);
     })
 
-    passport.deserializeUser(async (id:any, done:any) => {
+    // recupera todos os detalhes do usuário a partir da sessão
+    passport.deserializeUser(async (id:number, done: (err: any, user?: UserInstance | null) => void) => {
         try {
             const user = await findUserById(id);
             done(null, user)
         } catch(err) {
-            console.log(err);
-            return done()
+            return done(err);
         }
     })
-
+    
+    // Verifica a existência do usuário com base no email e senha enviados pelo form
     passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
@@ -68,14 +72,14 @@ export function authenticate() {
 
             const errors = validationResult(req);
 
+            // Caso haja algum de validação, é informado aqui
             if (!errors.isEmpty()) {
                 const errorMessages = errors.array().map(error => error.msg);
-
-                console.log(errorMessages)
 
                 return res.status(400).json({ errors: errorMessages });
             } 
             
+            // Retorna erro caso o usuário não exista
             if (!user) {
                 return res.status(400).json({error: info.message})
             }

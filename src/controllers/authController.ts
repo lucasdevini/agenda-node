@@ -7,7 +7,9 @@ import { sequelize as Sequelize } from "../instances/sql";
 import { User } from "../models/user";
 import { Question } from "../models/questions";
 
+
 export const signUp = async (req: Request, res: Response) => {
+    // transaction para realizar a criação dos registros em duas diferentes tabelas (usuários e perguntas)
     const transaction = await Sequelize.transaction();
 
     try {
@@ -32,6 +34,7 @@ export const signUp = async (req: Request, res: Response) => {
         const question2: string = req.body.question2;
         const answer2: string = req.body.answer2.toLowerCase();
 
+        // busca o usuário no banco de dados baseando-se nos valores enviados no form
         const user = await User.findOne({
             where: {
                 [Op.or]: {
@@ -41,6 +44,7 @@ export const signUp = async (req: Request, res: Response) => {
             }
         })
 
+        // Salva o usuário no banco de dados caso ainda não tenha sido cadastrado
         if(!user) {
             const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -123,6 +127,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const email = req.body.email.toLowerCase();
     const phone = req.body.phone;
 
+    // Verifica se existe um usuário baseado nos dados enviados pelo form
     const user = await User.findOne({
         where: {
             date: {
@@ -133,6 +138,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
         }
     })
 
+    // caso exista, é criada uma sessão de tempo limitado para que o usuário redefina sua senha
     if(user) {
         res.cookie('user_id', user.id, { 
             maxAge: 900000,
@@ -170,18 +176,22 @@ export const question = async (req: Request, res: Response) => {
 
         const userId = req.cookies.user_id;
         
+        // Pega as repostas do usuário enviadas no form
         const answer1: string = req.body.answer1.toLowerCase();
         const answer2: string = req.body.answer2.toLowerCase();
 
+        // Pega as respotas do usuário salvas no banco de dados (no ato do cadastro)
         const answers = await Question.findAll({
             where: {
                 user_id: userId
             }
         });
 
+        // Compara as respostas enviadas no form de recuperação com as que estão no bd
         const correctAnswer1 = await bcrypt.compare(answer1, answers[0]?.answer);
         const correctAnswer2 = await bcrypt.compare(answer2, answers[1]?.answer);
 
+        // Se estiverem corretas, o sistema redireciona o usuário para a página de redefinição de senha
         if((correctAnswer1) && (correctAnswer2)) {   
             res.clearCookie('user_id')
 
@@ -225,9 +235,10 @@ export const resetPassword = async (req: Request, res: Response) => {
 
                 const samePasswords = await bcrypt.compare(newPassword, user.password);
 
-                if(samePasswords) {
+                
+                if(samePasswords) { // a nova senha não pode ser igual a já salva no bd
                     return res.status(400).json({error: 'A senha nova é igual a senha atual do usuário!'});
-                } else {
+                } else { // altera a senha
                     await User.update(
                         { password: hashedPassword },
                         {
@@ -241,7 +252,7 @@ export const resetPassword = async (req: Request, res: Response) => {
 
                     return res.status(200).json({success: 'Senha alterada com sucesso!'});
                 } 
-            } else {
+            } else { 
                 return res.status(400).json({error: 'As senhas não são iguais.'});
             }
         }

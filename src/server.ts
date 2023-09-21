@@ -21,8 +21,10 @@ server.set('view engine', 'mustache');
 server.set('views', path.join(__dirname, 'views'));
 server.engine('mustache', mustache());
 
+// define o caminho absoluto para a pasta de arquivos estáticos
 server.use(express.static(path.join(__dirname, '../public')));
 
+// estabelece o uso das funções de tráfego de requisições
 server.use(cookieParser()); 
 server.use(cors()); 
 server.use(express.urlencoded({extended: true}));

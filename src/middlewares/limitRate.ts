@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit'
 
+// Limita o usuário a um máximo de 10 tentativas por hora
 export const limiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 10, 

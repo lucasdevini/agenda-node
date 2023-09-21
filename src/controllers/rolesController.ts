@@ -4,7 +4,7 @@ import sequelize, { Op } from "sequelize";
 import { User, UserInstance } from "../models/user";
 import { validationResult } from "express-validator";
 
-// Controller do usuário
+// Controllers do usuário
 export const scheduleForm = async (req: Request, res: Response) => {
     try {
         const errors = validationResult(req);
@@ -147,7 +147,7 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
         const id: number = req.body.id;
         const status: string = req.body.status;
 
-        if (status === 'confirmado') {
+        if (status === 'confirmado') { // aceita o agendamento
             const schedule = await Schedule.findOne({
                 where: {
                     id
@@ -160,7 +160,7 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
             }
 
             res.status(200).json({ accepted: 'Agendamento confirmado com sucesso' });
-        } else {
+        } else { // recusa o agendamento e deleta seu registro
             await Schedule.destroy({
                 where: {
                     id
@@ -177,6 +177,7 @@ export const acceptOrRefuseSchedule = async (req: Request, res: Response) => {
 };
 
 export const searchPending = async (req: Request, res: Response) => {
+   // busca os agendamentos pendentes
    let searchedDate: string = req.query.search as string;
    
    const list = await Schedule.findAll({
@@ -197,6 +198,7 @@ export const searchPending = async (req: Request, res: Response) => {
 }
 
 export const searchConfirmed = async (req: Request, res: Response) => {
+    // busca os agendamentos confirmados
     let searchedDate: string = req.query.search as string;
     
     const list = await Schedule.findAll({

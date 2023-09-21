@@ -1,6 +1,6 @@
-// inputmask como o campo telefone
 const phoneInput = document.getElementById('phone') as HTMLInputElement;
 
+// formata o valor digitado no campo phone de acordo com a mudança no valor digitado
 phoneInput.addEventListener('input', (event) => {
     const input = (event.target as HTMLInputElement).value.replace(/\D/g, '');
     const formattedInput = formatPhoneNumber(input);
@@ -8,6 +8,7 @@ phoneInput.addEventListener('input', (event) => {
     phoneInput.value = formattedInput;
 });
 
+// molda o que foi digitado no campo para o padrão desejado - (xx) xxxxx-xxxx -
 function formatPhoneNumber(value: string): string {
     const cleanedValue = value.replace(/\D/g, '');
     const match = cleanedValue.match(/^(\d{2})(\d{0,5})(\d{0,4})$/);
